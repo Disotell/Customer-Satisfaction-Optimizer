@@ -11,14 +11,14 @@ import static org.easymock.EasyMock.createMock;
  */
 public class MainTest {
 
-    Main2 main;
+    Main main;
     GUI mockGUI;
     FileFormatter mockFileFormatter;
     HungarianAlgorithm mockHungarianAlgorithm;
 
     @Before
     public void setup(){
-        main = new Main2();
+        main = new Main();
         mockGUI = createMock("mockGUI", GUI.class );
         mockFileFormatter = createMock("mockFileFormatter", FileFormatter.class);
         mockHungarianAlgorithm = createMock("mockHungarianAlgorithm", HungarianAlgorithm.class );
