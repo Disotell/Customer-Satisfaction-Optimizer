@@ -3,7 +3,7 @@ package edu.fgcu.cso;
 import org.junit.Before;
 import org.junit.Test;
 
-class GUITest{
+public class GUITest {
 
     GUI gui;
 

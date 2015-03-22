@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-
-class HungarianAlgorithmTest{
+public class HungarianAlgorithmTest {
 
     HungarianAlgorithm hungarianAlgorithm;
 

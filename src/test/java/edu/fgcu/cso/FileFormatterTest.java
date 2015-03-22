@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by Colin on 3/12/2015.
  */
-class FileFormatterTest{
+public class FileFormatterTest {
 
     FileFormatter fileFormatter;
 
