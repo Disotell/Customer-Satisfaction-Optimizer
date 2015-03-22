@@ -6,10 +6,10 @@ import java.io.File;
 
 public class Main {
 
-    private void start(FileFormater fileFormater, HungarianAlgorithm hungAlgo, GUI gui){
+    private void start(FileFormatter fileFormatter, HungarianAlgorithm hungAlgo, GUI gui) {
         File file = getFile();
 
-        int[][] initialMatrix = fileFormater.getData(file);
+        int[][] initialMatrix = fileFormatter.getData(file);
         int[][] reversedMatrix = reverseMinMax(initialMatrix);
         int[] solution = hungAlgo.calcCSO(reversedMatrix);
 
@@ -40,6 +40,6 @@ public class Main {
 
     public static void main(String[] args){
         Main main = new Main();
-        main.start(new FileFormater(),new HungarianAlgorithm(), new GUI());
+        main.start(new FileFormatter(), new HungarianAlgorithm(), new GUI());
     }
 }

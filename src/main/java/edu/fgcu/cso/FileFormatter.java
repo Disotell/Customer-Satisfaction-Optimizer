@@ -5,12 +5,12 @@ import java.io.File;
 /**
  * Created by William & Colin on 3/11/2015.
  */
-public class FileFormater{
+public class FileFormatter {
 
     /**
      *
      */
-    protected FileFormater(){
+    protected FileFormatter() {
 
     }
 

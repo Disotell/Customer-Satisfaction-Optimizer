@@ -13,14 +13,14 @@ public class MainTest {
 
     Main2 main;
     GUI mockGUI;
-    FileFormater mockFileFormatter;
+    FileFormatter mockFileFormatter;
     HungarianAlgorithm mockHungarianAlgorithm;
 
     @Before
     public void setup(){
         main = new Main2();
         mockGUI = createMock("mockGUI", GUI.class );
-        mockFileFormatter = createMock("mockFileFormatter ", FileFormater.class );
+        mockFileFormatter = createMock("mockFileFormatter", FileFormatter.class);
         mockHungarianAlgorithm = createMock("mockHungarianAlgorithm", HungarianAlgorithm.class );
     }
 
@@ -28,37 +28,37 @@ public class MainTest {
 
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testGetFile(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testReverseMinMax(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStart(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartNullFile(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartNullData(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartNullReversed(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartNullSolution(){
         throw new RuntimeException();
     }

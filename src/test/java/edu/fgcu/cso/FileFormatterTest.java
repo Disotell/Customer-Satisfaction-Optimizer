@@ -8,57 +8,58 @@ import org.junit.Test;
  */
 class FileFormatterTest{
 
-    FileFormater fileFormatter;
+    FileFormatter fileFormatter;
 
     @Before
     public void setup(){
-        fileFormatter = new FileFormater();
+        fileFormatter = new FileFormatter();
     }
 
     public FileFormatterTest(){
 
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testGetData(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testGetDataNullFile(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testGetDataFileNotFound(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testReadData(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testReadDataError(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testParseData(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testParseDataError(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testCheckSquareTrue(){
         throw new RuntimeException();
     }
-    @Test
+
+    @Test(expected = RuntimeException.class)
     public void testCheckSquareFalse(){
         throw new RuntimeException();
     }

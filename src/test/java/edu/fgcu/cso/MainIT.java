@@ -10,16 +10,16 @@ import static org.easymock.EasyMock.createMock;
  */
 public class MainIT {
 
-    Main2 main;
+    Main main;
     GUI mockGUI;
-    FileFormater mockFileFormatter;
+    FileFormatter mockFileFormatter;
     HungarianAlgorithm mockHungarianAlgorithm;
 
     @Before
     public void setup(){
-        main = new Main2();
+        main = new Main();
         mockGUI = createMock("mockGUI", GUI.class );
-        mockFileFormatter = createMock("mockFileFormatter ", FileFormater.class );
+        mockFileFormatter = createMock("mockFileFormatter", FileFormatter.class);
         mockHungarianAlgorithm = createMock("mockHungarianAlgorithm", HungarianAlgorithm.class );
     }
 
@@ -27,17 +27,17 @@ public class MainIT {
 
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartFileFormatterIntegration(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartGUIIntegration(){
         throw new RuntimeException();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testStartHungarianIntegration(){
         throw new RuntimeException();
     }
