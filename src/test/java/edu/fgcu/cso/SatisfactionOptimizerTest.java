@@ -4,16 +4,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class HungarianAlgorithmTest {
+/**
+ * Created by William on 3/22/2015.
+ */
+public class SatisfactionOptimizerTest {
 
-    HungarianAlgorithm hungarianAlgorithm;
+    SatisfactionOptimizer satisfactionOptimizer;
+    int[][] testMatrix= new int[][]{{1,2,3},{3,2,1},{9,2,1}};
 
     @Before
     public void setup(){
-        hungarianAlgorithm = new HungarianAlgorithm();
+        satisfactionOptimizer = new SatisfactionOptimizer();
     }
 
-    public HungarianAlgorithmTest(){
+    public SatisfactionOptimizerTest(){
 
     }
 

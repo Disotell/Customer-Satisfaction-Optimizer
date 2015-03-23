@@ -8,18 +8,16 @@ import java.awt.*;
  */
 public class GUI {
 
-    protected GUI(){
+    protected GUI() {
 
     }
 
-    public void buildGUI(int[][] matrix, int[] solution){
-        if(matrix == null || solution == null){
+    public void buildGUI(int[][] matrix, int[] solution) {
+        if (matrix == null || solution == null) {
             showError("IllegalState");
-        }
-        else if(matrix.length == 0 || solution.length == 0){
+        } else if (matrix.length == 0 || solution.length == 0) {
             showError("IllegalState2");
-        }
-        else{
+        } else {
             createUIComponents(matrix, solution);
         }
     }
@@ -27,7 +25,7 @@ public class GUI {
     /**
      * Shows the error message specified by the constructor
      */
-    public void showError(String error){
+    public void showError(String error) {
         //new DialogMessage(error) or something
     }
 
@@ -36,13 +34,13 @@ public class GUI {
 
         JPanel matrixPanel = buildMatixPanel();
 
-        JTable table = createMatrix(matrix,solution);
+        JTable table = createMatrix(matrix, solution);
 
         frame.add(matrixPanel, BorderLayout.CENTER);
     }
 
     //int x, int y, int width, int height
-    private JPanel buildMatixPanel(){
+    private JPanel buildMatixPanel() {
         JPanel matrixPanel = new JPanel();
         matrixPanel.setPreferredSize(new Dimension(300, 400));
         matrixPanel.setBackground(Color.red);
@@ -50,7 +48,7 @@ public class GUI {
         return matrixPanel;
     }
 
-    private JFrame buildMainFrame(){
+    private JFrame buildMainFrame() {
         JFrame mainFrame = new JFrame("Customer Satisfaction Optimizer");
         mainFrame.setBounds(0, 0, 700, 500);
         mainFrame.setLayout(new BorderLayout());
@@ -61,11 +59,10 @@ public class GUI {
         return mainFrame;
     }
 
-    private JTable createMatrix(int[][] matrix, int[] solution){
+    private JTable createMatrix(int[][] matrix, int[] solution) {
         JTable dataMatrix = new JTable();
         return dataMatrix;
     }
-
 
 
 }

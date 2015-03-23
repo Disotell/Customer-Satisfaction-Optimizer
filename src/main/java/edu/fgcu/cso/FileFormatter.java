@@ -15,10 +15,9 @@ public class FileFormatter {
     }
 
     /**
-     *
      * @return
      */
-    protected int[][] getData(File file){
+    protected int[][] getData(File file) {
         String[][] stringMatrix = readData(file);
 
         checkSquare(stringMatrix);
@@ -31,28 +30,27 @@ public class FileFormatter {
     /**
      * Read Data from file and convert to String Array
      */
-    private String[][] readData(File file){
+    private String[][] readData(File file) {
 
-        return  new String[2][2];
+        return new String[2][2];
     }
 
     /**
      * Converts String data array to int array
      */
-    private int[][] parseData(String[][] stringMatrix){
+    private int[][] parseData(String[][] stringMatrix) {
         int[][] row = new int[stringMatrix.length][stringMatrix[0].length];
         //TODO parse out tokens
-        return  row;
+        return row;
     }
 
     /**
      * Checks if the rows and column are equal
      */
-    private boolean checkSquare(String[][] matrix){
+    private boolean checkSquare(String[][] matrix) {
         //TODO return based on matrix
-        return  false;
+        return false;
     }
-
 
 
 }
