@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
+/**
+ * Created by William on 3/11/2015.
+ */
 public class Main {
 
     private void start(FileFormatter fileFormatter, HungarianAlgorithm hungAlgo, GUI gui) {
@@ -33,9 +36,27 @@ public class Main {
     /**
      * Converts the data so Min and Max are inverted
      */
-    private int[][] reverseMinMax(int[][] matrix){
+    private int[][] reverseMinMax(int[][] data) {
+        int max = Integer.MIN_VALUE;
+        int[][] nData = new int[data.length][data.length];
 
-        return new int[2][2];
+        //Get Max Value and negate Values
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data.length; j++) {
+                if (data[i][j] > max) {
+                    max = data[i][j];
+                }
+                nData[i][j] = -data[i][j];
+            }
+        }
+
+        //Add max Value to all Elements
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data.length; j++) {
+                nData[i][j] = nData[i][j] + max;
+            }
+        }
+        return nData;
     }
 
     public static void main(String[] args){

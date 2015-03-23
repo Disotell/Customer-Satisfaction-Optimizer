@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by William & Colin on 3/11/2015.
+ * Created by William on 3/11/2015.
  */
 public class GUI {
 

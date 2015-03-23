@@ -3,7 +3,7 @@ package edu.fgcu.cso;
 import java.io.File;
 
 /**
- * Created by William & Colin on 3/11/2015.
+ * Created by William on 3/11/2015.
  */
 public class FileFormatter {
 
