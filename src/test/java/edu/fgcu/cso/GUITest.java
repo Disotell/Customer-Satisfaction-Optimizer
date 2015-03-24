@@ -16,47 +16,47 @@ public class GUITest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildGUI(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildGUINullMatrix(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildGUINullSolution(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildGUIEmptyMatrix(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildGUIEmptySolution(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testShowError(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testShowErrorNullString(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildMatrixPanel(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCreateMatrix(){
         throw new RuntimeException();
     }
@@ -66,12 +66,12 @@ public class GUITest {
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testMatrixNonOptimalFontColor(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void createUIComponents(){
         throw new RuntimeException();
     }

@@ -27,17 +27,17 @@ public class MainIT {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartFileFormatterIntegration(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartGUIIntegration(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartHungarianIntegration(){
         throw new RuntimeException();
     }

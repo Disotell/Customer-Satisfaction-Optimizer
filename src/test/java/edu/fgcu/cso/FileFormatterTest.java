@@ -19,47 +19,47 @@ public class FileFormatterTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testGetData(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testGetDataNullFile(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testGetDataFileNotFound(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReadData(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReadDataError(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testParseData(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testParseDataError(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCheckSquareTrue(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCheckSquareFalse(){
         throw new RuntimeException();
     }

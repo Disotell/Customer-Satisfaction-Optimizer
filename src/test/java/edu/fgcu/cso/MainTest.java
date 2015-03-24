@@ -28,37 +28,37 @@ public class MainTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testGetFile(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReverseMinMax(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStart(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartNullFile(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartNullData(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartNullReversed(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testStartNullSolution(){
         throw new RuntimeException();
     }

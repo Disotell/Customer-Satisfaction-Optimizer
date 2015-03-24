@@ -17,62 +17,62 @@ public class HungarianAlgorithmTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCalcCSO(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReduceMatrixRowAndCol(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReduceMatrixRow(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReduceMatrixCol(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testReduceMatrixNoChange(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCheckForSolutionNoSolution(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCheckForSolutionOneSolution(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testCheckForSolutionMultipleSolutions(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testMarkTheZeroRowsNoChange(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testMarkTheZeroRows(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testAdjustElementsNoChange(){
         throw new RuntimeException();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testAdjustElements(){
         throw new RuntimeException();
     }
