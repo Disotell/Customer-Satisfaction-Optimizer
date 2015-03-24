@@ -14,14 +14,14 @@ public class MainTest {
     Main main;
     GUI mockGUI;
     FileFormatter mockFileFormatter;
-    HungarianAlgorithm mockHungarianAlgorithm;
+    SatisfactionOptimizer mockSatisfactionOptimizer;
 
     @Before
     public void setup(){
         main = new Main();
         mockGUI = createMock("mockGUI", GUI.class );
         mockFileFormatter = createMock("mockFileFormatter", FileFormatter.class);
-        mockHungarianAlgorithm = createMock("mockHungarianAlgorithm", HungarianAlgorithm.class );
+        mockSatisfactionOptimizer = createMock("mockHungarianAlgorithm", SatisfactionOptimizer.class );
     }
 
     public MainTest(){
