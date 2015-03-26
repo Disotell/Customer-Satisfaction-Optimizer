@@ -1,6 +1,10 @@
 package main.java.edu.fgcu.cso;
 
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by William on 3/11/2015.
@@ -17,7 +21,7 @@ public class FileFormatter {
     /**
      * @return
      */
-    protected int[][] getData(File file) {
+    protected int[][] getData(File file) throws IOException{
         String[][] stringMatrix = readData(file);
 
         checkSquare(stringMatrix);
@@ -30,15 +34,25 @@ public class FileFormatter {
     /**
      * Read Data from file and convert to String Array
      */
-    private String[][] readData(File file) {
+    public String[][] readData(File file) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(file));
 
-        return new String[2][2];
+        List<String[]> stringValues = new ArrayList<String[]>();
+
+        String line = br.readLine();
+
+        while (line != null) {
+            String[] lineValues = line.split(",");
+            stringValues.add(lineValues);
+        }
+
+        return (String[][]) stringValues.toArray();
     }
 
     /**
      * Converts String data array to int array
      */
-    private int[][] parseData(String[][] stringMatrix) {
+    public int[][] parseData(String[][] stringMatrix) {
         int[][] row = new int[stringMatrix.length][stringMatrix[0].length];
         //TODO parse out tokens
         return row;
@@ -47,7 +61,7 @@ public class FileFormatter {
     /**
      * Checks if the rows and column are equal
      */
-    private boolean checkSquare(String[][] matrix) {
+    public boolean checkSquare(String[][] matrix) {
         //TODO return based on matrix
         return false;
     }
