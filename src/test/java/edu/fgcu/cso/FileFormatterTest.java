@@ -74,7 +74,23 @@ public class FileFormatterTest {
 
     @Test
     public void testReadDataError(){
-        throw new RuntimeException();
+        try {
+            fileFormatter.readData(doesNotExist);
+            fail("Expected exception was not thrown");
+        } catch (IOException ignored) {}
+    }
+
+    @Test
+    public void testReadDataBlank(){
+        String[][] dataRead = null;
+
+        try {
+            dataRead = fileFormatter.readData(blankData);
+        } catch (IOException e) {
+            fail("An IOException was thrown");
+        }
+
+        assertNull(dataRead);
     }
 
     @Test
