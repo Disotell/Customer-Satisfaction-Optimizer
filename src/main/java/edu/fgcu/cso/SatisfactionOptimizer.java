@@ -1,4 +1,4 @@
-package edu.fgcu.cso;
+package main.java.edu.fgcu.cso;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;

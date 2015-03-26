@@ -1,4 +1,4 @@
-package edu.fgcu.cso;
+package main.java.edu.fgcu.cso;
 
 import java.io.File;
 
@@ -10,7 +10,7 @@ public class FileFormatter {
     /**
      *
      */
-    protected FileFormatter() {
+    public FileFormatter() {
 
     }
 

@@ -1,4 +1,4 @@
-package edu.fgcu.cso;
+package main.java.edu.fgcu.cso;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -10,13 +10,10 @@ import java.io.File;
 public class Main {
 
     private void start(FileFormatter fileFormatter, SatisfactionOptimizer hungAlgo, GUI gui) {
-        File file = getFile();
-
-        int[][] initialMatrix = fileFormatter.getData(file);
-
-        int[] solution = hungAlgo.calcCSO(initialMatrix);
-
-        gui.buildGUI(initialMatrix, solution);
+        //File file = getFile();
+        //int[][] initialMatrix = fileFormatter.getData(file);
+        //int[][] solution = hungAlgo.calcCSO(initialMatrix);
+        //gui.buildGUI(initialMatrix, solution);
     }
 
     private File getFile() {

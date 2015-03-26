@@ -1,5 +1,6 @@
-package edu.fgcu.cso;
+package test.java.edu.fgcu.cso;
 
+import main.java.edu.fgcu.cso.SatisfactionOptimizer;
 import org.junit.Before;
 import org.junit.Test;
 
