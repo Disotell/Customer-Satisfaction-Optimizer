@@ -1,9 +1,5 @@
-package test.java.edu.fgcu.cso;
+package edu.fgcu.cso;
 
-import main.java.edu.fgcu.cso.FileFormatter;
-import main.java.edu.fgcu.cso.GUI;
-import main.java.edu.fgcu.cso.Main;
-import main.java.edu.fgcu.cso.SatisfactionOptimizer;
 import org.junit.Before;
 import org.junit.Test;
 

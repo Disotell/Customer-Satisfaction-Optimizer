@@ -1,4 +1,4 @@
-package main.java.edu.fgcu.cso;
+package edu.fgcu.cso;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class GUI {
 
-    public GUI() {
+    protected GUI() {
 
     }
 

@@ -1,7 +1,8 @@
-package test.java.edu.fgcu.cso;
+package edu.fgcu.cso;
 
-import main.java.edu.fgcu.cso.FileFormatter;
+import edu.fgcu.cso.FileFormatter;
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
