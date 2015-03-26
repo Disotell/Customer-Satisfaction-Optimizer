@@ -44,9 +44,17 @@ public class FileFormatter {
         while (line != null) {
             String[] lineValues = line.split(",");
             stringValues.add(lineValues);
+            line = br.readLine();
         }
 
-        return (String[][]) stringValues.toArray();
+        if(stringValues.size() == 0){
+            return null;
+        }
+        else {
+            String[][] toReturn = new String[stringValues.size()][];
+            stringValues.toArray(toReturn);
+            return toReturn;
+        }
     }
 
     /**
