@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class FileFormatterTest {
 
-    final static String TEST_FILE_DIRECTORY = "";
+    final static String TEST_FILE_DIRECTORY = ".\\src\\test\\resources\\";
 
     FileFormatter fileFormatter;
     File goodData;
