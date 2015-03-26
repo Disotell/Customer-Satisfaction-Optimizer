@@ -33,13 +33,10 @@ public class MainTest {
         throw new RuntimeException();
     }
 
-    @Test
-    public void testReverseMinMax(){
-        throw new RuntimeException();
-    }
 
     @Test
     public void testStart(){
+
         throw new RuntimeException();
     }
 

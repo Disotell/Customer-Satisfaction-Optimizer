@@ -16,7 +16,7 @@ public class SatisfactionOptimizer {
 
     }
 
-    public int[][] calcCSO(int[][] costmatrix) {
+    public int[] calcCSO(int[][] costmatrix) {
         int[][] cM = new int[costmatrix.length][costmatrix.length];
         cM = reverseMinMax(costmatrix);
 
@@ -39,7 +39,7 @@ public class SatisfactionOptimizer {
      * @param data Original Matrix
      * @return Formatted Matrix
      */
-    private int[][] reverseMinMax(int[][] data) {
+    public int[][] reverseMinMax(int[][] data) {
         int max = Integer.MIN_VALUE;
         int[][] nData = new int[data.length][data.length];
 
@@ -69,7 +69,7 @@ public class SatisfactionOptimizer {
      * @param b
      * @param dim
      */
-    private void copy2DArray(int[][] a, int[][] b, int dim) {
+   public void copy2DArray(int[][] a, int[][] b, int dim) {
         //TODO Add addition Error Checking
         if (a != null && b != null && dim > 0) {
             for (int i = 0; i < dim; i++) {

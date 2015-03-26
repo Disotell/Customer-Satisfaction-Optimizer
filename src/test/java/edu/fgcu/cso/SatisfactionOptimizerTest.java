@@ -2,6 +2,7 @@ package edu.fgcu.cso;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 /**
@@ -10,7 +11,9 @@ import org.junit.Test;
 public class SatisfactionOptimizerTest {
 
     SatisfactionOptimizer satisfactionOptimizer;
-    int[][] testMatrix= new int[][]{{1,2,3},{3,2,1},{9,2,1}};
+    int[][] testMatrix= new int[][]{{1,2,3},{3,2,1},{3,2,1}};
+    private int[][] testReverseMatrix= new int[][]{{2,1,0},{0,1,2},{0,1,2}};
+
 
     @Before
     public void setup(){
@@ -27,12 +30,25 @@ public class SatisfactionOptimizerTest {
     }
 
     @Test
+    public void testReverseMinMax(){
+        int[][] afterReverse = satisfactionOptimizer.reverseMinMax(testMatrix);
+        for(int i=0;i<afterReverse.length;i++){
+            for (int j=0; j < afterReverse[i].length ; j++){
+                assertSame(testReverseMatrix[i][j],afterReverse[i][j]);
+            }
+        }
+
+
+    }
+
+    @Test
     public void testReduceMatrixRowAndCol(){
         throw new RuntimeException();
     }
 
     @Test
     public void testReduceMatrixRow(){
+
         throw new RuntimeException();
     }
 
@@ -40,6 +56,7 @@ public class SatisfactionOptimizerTest {
     public void testReduceMatrixCol(){
         throw new RuntimeException();
     }
+
 
     @Test
     public void testReduceMatrixNoChange(){
