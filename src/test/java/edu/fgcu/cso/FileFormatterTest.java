@@ -39,17 +39,58 @@ public class FileFormatterTest {
 
     @Test
     public void testGetData(){
-        throw new RuntimeException();
+        int[][] dataRead = null;
+
+        try {
+            dataRead = fileFormatter.getData(goodData);
+        } catch (IOException e) {
+            fail("An IOException was thrown");
+        }
+
+        assertNotNull("int array returned was null", dataRead);
+
+        int[][] knownDataInFile =
+                {{1, 2, 3, 4, 5},
+                 {6, 7, 8, 9, 10},
+                 {11, 12, 13, 14, 15},
+                 {16, 17, 18, 19, 20},
+                 {21, 22, 23, 24, 25}};
+
+        assertEquals("outer dimensions of input do not match dimensions of output", knownDataInFile.length, dataRead.length);
+        for(int i = 0; i < knownDataInFile.length; i++){
+            assertEquals("inner dimensions of input do not match dimensions of output",knownDataInFile[i].length,dataRead[i].length);
+            assertArrayEquals("Array values expected does not match array returned", knownDataInFile[i], dataRead[i]);
+        }
     }
 
     @Test
     public void testGetDataNullFile(){
-        throw new RuntimeException();
+        int[][] dataRead = null;
+        try {
+            dataRead = fileFormatter.getData(null);
+        } catch (IOException e) {
+            fail("An IOException was thrown");
+        }
+        assertNull("data array returned from null file not null", dataRead);
+    }
+
+    @Test
+    public void testGetDataNonSquare(){
+        int[][] dataRead = null;
+        try {
+            dataRead = fileFormatter.getData(nonSquareData);
+        } catch (IOException e) {
+            fail("An IOException was thrown");
+        }
+        assertNull("data array returned from non-square file not null",dataRead);
     }
 
     @Test
     public void testGetDataFileNotFound(){
-        throw new RuntimeException();
+        try {
+            fileFormatter.getData(doesNotExist);
+            fail("Expected exception was not thrown");
+        } catch (IOException ignored) {}
     }
 
     @Test
@@ -145,7 +186,7 @@ public class FileFormatterTest {
                  {"4", "5"},
                  {"6", "7", "8"}};
 
-        assertFalse("Non-square matrix, returns true",fileFormatter.checkSquare(initialData));
+        assertFalse("Non-square matrix, returns true", fileFormatter.checkSquare(initialData));
     }
 
 }
