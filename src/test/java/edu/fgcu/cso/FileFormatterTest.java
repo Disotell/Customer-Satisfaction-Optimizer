@@ -130,12 +130,22 @@ public class FileFormatterTest {
 
     @Test
     public void testCheckSquareTrue(){
-        throw new RuntimeException();
+        String[][] initialData =
+                {{"1", "2", "3"},
+                 {"4", "5", "6"},
+                 {"7", "8", "9"}};
+
+        assertTrue("square matrix, does not return true",fileFormatter.checkSquare(initialData));
     }
 
     @Test
     public void testCheckSquareFalse(){
-        throw new RuntimeException();
+        String[][] initialData =
+                {{"1", "2", "3"},
+                 {"4", "5"},
+                 {"6", "7", "8"}};
+
+        assertFalse("Non-square matrix, returns true",fileFormatter.checkSquare(initialData));
     }
 
 }

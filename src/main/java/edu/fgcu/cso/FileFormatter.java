@@ -64,6 +64,7 @@ public class FileFormatter {
      * returns null if any of the strings failed to parse
      */
     public int[][] parseData(String[][] stringMatrix) {
+
         int[][] row = new int[stringMatrix.length][stringMatrix[0].length];
 
         for (int i=0; i < stringMatrix.length; i++) {
@@ -83,8 +84,11 @@ public class FileFormatter {
      * Checks if the rows and column are equal
      */
     public boolean checkSquare(String[][] matrix) {
-        //TODO return based on matrix
-        return false;
+        int size = matrix.length;
+        for (String[] aMatrix : matrix) {
+            if (aMatrix.length != size) return false;
+        }
+        return true;
     }
 
 
