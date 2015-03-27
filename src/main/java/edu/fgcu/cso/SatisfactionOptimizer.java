@@ -89,7 +89,7 @@ public class SatisfactionOptimizer {
      *
      * @param cM costMatrix
      */
-    private void reduceMatrix(int[][] cM) {
+    public void reduceMatrix(int[][] cM) {
         for (int i = 0; i < cM.length; i++) {
             // find the min value in the row
             int minRowVal = Integer.MAX_VALUE;
