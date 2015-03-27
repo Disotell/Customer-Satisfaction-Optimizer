@@ -2,6 +2,9 @@ package edu.fgcu.cso;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 
@@ -30,6 +33,16 @@ public class SatisfactionOptimizerTest {
     }
 
     @Test
+    public void TestCopy2DArray() {
+        int[][] test = new int[testMatrix.length][testMatrix.length];
+        satisfactionOptimizer.copy2DArray(testMatrix,test,testMatrix.length);
+        for(int i=0;i<testMatrix.length;i++){
+            for (int j=0; j <testMatrix[i].length; j++) {
+                assertSame(testMatrix[i][j],test[i][j]);
+            }
+        }
+    }
+    @Test
     public void testReverseMinMax(){
         int[][] testReverseMatrix= new int[][]{{2,1,0},{0,1,2},{0,1,2}};
         int[][] afterReverse = satisfactionOptimizer.reverseMinMax(testMatrix);
@@ -53,13 +66,24 @@ public class SatisfactionOptimizerTest {
 
     @Test
     public void testReduceMatrixRow(){
-
-        throw new RuntimeException();
+        int[][]testReduceRowMatrix= new int[][]{{0,0,2},{2,0,0},{2,0,0}};
+        satisfactionOptimizer.reduceMatrix(testMatrix);
+        for(int i=0;i<testMatrix.length;i++){
+            for (int j=0; j <testMatrix[i].length; j++) {
+                assertSame(testReduceRowMatrix[i][j],testMatrix[i][j]);
+            }
+        }
     }
 
     @Test
     public void testReduceMatrixCol(){
-        throw new RuntimeException();
+        int[][]testReduceColMatrix= new int[][]{{0,0,2},{2,0,0},{2,0,0}};
+        satisfactionOptimizer.reduceMatrix(testMatrix);
+        for(int i=0;i<testMatrix.length;i++){
+            for (int j=0; j <testMatrix[i].length; j++) {
+                assertSame(testReduceColMatrix[i][j],testMatrix[i][j]);
+            }
+        }
     }
     
     @Test
@@ -86,7 +110,7 @@ public class SatisfactionOptimizerTest {
 
     @Test
     public void testMarkTheZeroRows(){
-
+        throw new RuntimeException();
     }
 
     @Test
