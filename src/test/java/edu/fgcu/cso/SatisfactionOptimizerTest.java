@@ -2,6 +2,7 @@ package edu.fgcu.cso;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 /**
@@ -10,7 +11,9 @@ import org.junit.Test;
 public class SatisfactionOptimizerTest {
 
     SatisfactionOptimizer satisfactionOptimizer;
-    int[][] testMatrix= new int[][]{{1,2,3},{3,2,1},{9,2,1}};
+    private int[][] testMatrix= new int[][]{{1,2,3},{3,2,1},{3,2,1}};
+   
+    
 
     @Before
     public void setup(){
@@ -27,12 +30,30 @@ public class SatisfactionOptimizerTest {
     }
 
     @Test
+    public void testReverseMinMax(){
+        int[][] testReverseMatrix= new int[][]{{2,1,0},{0,1,2},{0,1,2}};
+        int[][] afterReverse = satisfactionOptimizer.reverseMinMax(testMatrix);
+        for(int i=0;i<afterReverse.length;i++){
+            for (int j=0; j < afterReverse[i].length; j++) {
+                assertSame(testReverseMatrix[i][j],afterReverse[i][j]);
+            }
+        }
+    }
+
+    @Test
     public void testReduceMatrixRowAndCol(){
-        throw new RuntimeException();
+       int[][] testReduceRowColMatrix= new int[][]{{0,0,2},{2,0,0},{2,0,0}};
+       satisfactionOptimizer.reduceMatrix(testMatrix);
+        for(int i=0;i<testMatrix.length;i++){
+            for (int j=0; j <testMatrix[i].length; j++) {
+                assertSame(testReduceRowColMatrix[i][j],testMatrix[i][j]);
+            }
+        }
     }
 
     @Test
     public void testReduceMatrixRow(){
+
         throw new RuntimeException();
     }
 
@@ -40,7 +61,7 @@ public class SatisfactionOptimizerTest {
     public void testReduceMatrixCol(){
         throw new RuntimeException();
     }
-
+    
     @Test
     public void testReduceMatrixNoChange(){
         throw new RuntimeException();
@@ -55,20 +76,17 @@ public class SatisfactionOptimizerTest {
     public void testCheckForSolutionOneSolution(){
         throw new RuntimeException();
     }
-
-    @Test
-    public void testCheckForSolutionMultipleSolutions(){
-        throw new RuntimeException();
-    }
-
+    
     @Test
     public void testMarkTheZeroRowsNoChange(){
+        
         throw new RuntimeException();
+        
     }
 
     @Test
     public void testMarkTheZeroRows(){
-        throw new RuntimeException();
+
     }
 
     @Test
