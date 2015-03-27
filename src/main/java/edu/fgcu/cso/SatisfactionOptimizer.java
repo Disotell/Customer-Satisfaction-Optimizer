@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class SatisfactionOptimizer {
 
-    private int[][] CM;  // the N-by-N weight matrix
+
 
 
     public SatisfactionOptimizer() {

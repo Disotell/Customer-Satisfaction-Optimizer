@@ -42,6 +42,8 @@ public class SatisfactionOptimizerTest {
             }
         }
     }
+
+
     @Test
     public void testReverseMinMax(){
         int[][] testReverseMatrix= new int[][]{{2,1,0},{0,1,2},{0,1,2}};
