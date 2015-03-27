@@ -96,12 +96,36 @@ public class FileFormatterTest {
 
     @Test
     public void testParseData(){
-        throw new RuntimeException();
+        String[][] initialData =
+                {{"1", "2", "3", "4", "5"},
+                 {"6", "7", "8", "9", "10"}};
+
+        int[][] targetData =
+                {{1, 2, 3, 4, 5},
+                {6, 7, 8, 9, 10}};
+
+        int[][] dataRead = fileFormatter.parseData(initialData);
+
+        assertNotNull("int array returned was null", dataRead);
+
+        assertEquals("outer dimensions of input do not match dimensions of output",initialData.length,dataRead.length);
+        for(int i = 0; i < initialData.length; i++){
+            assertEquals("inner dimensions of input do not match dimensions of output",initialData[i].length,dataRead[i].length);
+            assertArrayEquals("Array values expected does not match array returned", targetData[i], dataRead[i]);
+        }
+
+
     }
 
     @Test
     public void testParseDataError(){
-        throw new RuntimeException();
+        String[][] initialData =
+                {{"1", "2", "c", "4", "5"},
+                 {"6", "7", "8", "9", "10"}};
+
+        int[][] dataRead = fileFormatter.parseData(initialData);
+
+        assertNull("int array returned was not null", dataRead);
     }
 
     @Test

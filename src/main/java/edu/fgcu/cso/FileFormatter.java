@@ -33,6 +33,8 @@ public class FileFormatter {
 
     /**
      * Read Data from file and convert to String Array
+     * returns null if the file is blank
+     * throws IOException if file is not found
      */
     public String[][] readData(File file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -59,10 +61,21 @@ public class FileFormatter {
 
     /**
      * Converts String data array to int array
+     * returns null if any of the strings failed to parse
      */
     public int[][] parseData(String[][] stringMatrix) {
         int[][] row = new int[stringMatrix.length][stringMatrix[0].length];
-        //TODO parse out tokens
+
+        for (int i=0; i < stringMatrix.length; i++) {
+            for (int j=0; j < stringMatrix[i].length; j++) {
+                try {
+                    row[i][j] = Integer.parseInt(stringMatrix[i][j]);
+                } catch (NumberFormatException e) {
+                    return null;
+                }
+            }
+        }
+
         return row;
     }
 
