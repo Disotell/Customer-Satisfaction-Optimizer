@@ -3,27 +3,61 @@ package edu.fgcu.cso;
 import java.util.Arrays;
 
 /**
- * Created by William on 3/11/2015.
+ *  Finds the Optimal Customer Satisfaction
+ *  from a Weighted Square Matrix
  */
 public class SatisfactionOptimizer {
 
-    public SatisfactionOptimizer() {
-
-    }
-
     public int[] calcCSO(int[][] costmatrix) {
-        int[][] cM = new int[costmatrix.length][costmatrix.length];
-        cM = reverseMinMax(costmatrix);
+        //Initializes Arrays
 
+        int[][] costMatrix = copy2DArray(costmatrix);
+        int[][] cM = reverseMinMax(costMatrix);
 
-        // subtract minumum value from rows and columns to create lots of zeroes
-        reduceMatrix(cM);
         // 1s mean covered, 0s mean not covered
         int[] mRows = new int[cM.length];
         int[] mCols = new int[cM[0].length];
 
 
+        int[] zerosByRow = new int[costMatrix.length];
+        int[] zerosByCol = new int[costMatrix[0].length];
+        int[] onlyZeroByRow = new int[costmatrix.length];
+
+        //Fill Arrays with -1
+        Arrays.fill(zerosByCol, -1);
+        Arrays.fill(zerosByRow, -1);
+        Arrays.fill(onlyZeroByRow, -1);
+
+        // subtract minumum value from rows and columns to create lots of zeroes
+        reduceMatrix(cM);
+
+        markTheZeroRows(cM, mRows, mCols);
+
+
         return null;
+    }
+
+    /**
+     * Copies Array a to b
+     *
+     * @param a Original Array
+     * @return b Copy of Array a
+     */
+    int[][] copy2DArray(int[][] a) {
+        int[][] b;
+        if (a != null && a.length > 0) {
+            b = new int[a.length][];
+            for (int i = 0; i < a.length; i++) {
+                if (i < a.length) {
+                    b[i] = Arrays.copyOf(a[i], a[i].length);
+                } else {
+                    b[i] = new int[a[i].length];
+                }
+            }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return b;
     }
 
     /**
@@ -61,34 +95,11 @@ public class SatisfactionOptimizer {
     }
 
     /**
-     * Copies Array a to b
-     *
-     * @param a
-     * @return b
-     */
-    int[][] copy2DArray(int[][] a) {
-        int[][] b;
-        if (a != null && a.length > 0) {
-            b = new int[a.length][];
-            for (int i = 0; i < a.length; i++) {
-                if (i < a.length) {
-                    b[i] = Arrays.copyOf(a[i], a[i].length);
-                } else {
-                    b[i] = new int[a[i].length];
-                }
-            }
-        } else {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        return b;
-    }
-
-    /**
      * Finds the smallest element in each row
      * and subtract it's values from all elements
      * in that row
      *
-     * @param cM costMatrix
+     * @param cM costMatrix Cost Matrix
      */
     void reduceMatrix(int[][] cM) {
 
@@ -110,9 +121,9 @@ public class SatisfactionOptimizer {
             // find the min value in the col
             for (int i = 0; i < cM[0].length; i++) {
                 int minColVal = Integer.MAX_VALUE;
-                for (int j = 0; j < cM.length; j++) {
-                    if (minColVal > cM[j][i]) {
-                        minColVal = cM[j][i];
+                for (int[] aCM : cM) {
+                    if (minColVal > aCM[i]) {
+                        minColVal = aCM[i];
                     }
                 }
                 // subtract it from all values in the col
@@ -125,7 +136,13 @@ public class SatisfactionOptimizer {
         }
     }
 
-
+    /**
+     * Identifys the rows and columns with Zeros
+     *
+     * @param cM    cost Matrix
+     * @param mRows row with zero
+     * @param mCols column with zero
+     */
     void markTheZeroRows(int[][] cM, int[] mRows, int[] mCols) {
 
         if (cM != null && cM.length > 0
@@ -169,7 +186,7 @@ public class SatisfactionOptimizer {
     /**
      * Checks to see if all the columns have a match
      *
-     * @param mCols
+     * @param mCols column with zero
      * @return true = solution found | false = solution not found
      */
     boolean checkForSolution(int[] mCols) {
@@ -184,9 +201,9 @@ public class SatisfactionOptimizer {
     }
 
     int[][] adjustElements(int[][] p, int[][] t) {
+
         return null;
     }
 
-
-}
+}//End of SatisfactionOptimizer
 
