@@ -172,6 +172,17 @@ public class SatisfactionOptimizerTest {
         satisfactionOptimizer.markTheZeroRows(null, null, null);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testMarkTheZeroRowsZeroLength() {
+        int[] testMRows = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        satisfactionOptimizer.markTheZeroRows(new int[0][0], testMRows, testMCols);
+        satisfactionOptimizer.markTheZeroRows(testMatrix, new int[0], testMCols);
+        satisfactionOptimizer.markTheZeroRows(testMatrix, testMRows, new int[0]);
+        satisfactionOptimizer.markTheZeroRows(new int[0][0], new int[0], new int[0]);
+    }
+
 
 
     @Test
