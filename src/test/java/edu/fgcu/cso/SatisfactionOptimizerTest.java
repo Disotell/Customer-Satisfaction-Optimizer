@@ -3,7 +3,9 @@ package edu.fgcu.cso;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -31,7 +33,7 @@ public class SatisfactionOptimizerTest {
 
     // Copy2DArray Tests
     @Test
-    public void jTestCopy2DArray() {
+    public void TestCopy2DArray() {
         int[][] test = satisfactionOptimizer.copy2DArray(testMatrix);
         for (int i = 0; i < testMatrix.length; i++) {
             for (int j = 0; j < testMatrix[i].length; j++) {
@@ -183,23 +185,26 @@ public class SatisfactionOptimizerTest {
         satisfactionOptimizer.markTheZeroRows(new int[0][0], new int[0], new int[0]);
     }
 
-
-
     @Test
     public void testCheckForSolutionNoSolution() {
-        throw new RuntimeException();
+        int[] testNoSolution = new int[]{0, 0, 0};
+        assertFalse("No Solution Input, but Solution Output ", satisfactionOptimizer.checkForSolution(testNoSolution));
     }
 
     @Test
-    public void testCheckForSolutionOneSolution() {
-        throw new RuntimeException();
+    public void testCheckForSolutionHasSolution() {
+        int[] testSolution = new int[]{1, 1, 1};
+        assertTrue("Solution Input, but No Solution Output ", satisfactionOptimizer.checkForSolution(testSolution));
     }
 
-    @Test
-    public void testMarkTheZeroRowsNoChange() {
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testCheckForSolutionNull() {
+        satisfactionOptimizer.checkForSolution(null);
+    }
 
-        throw new RuntimeException();
-
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testCheckForSolutionZeroLength() {
+        satisfactionOptimizer.checkForSolution(new int[0]);
     }
 
 

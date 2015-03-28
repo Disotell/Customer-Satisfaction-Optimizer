@@ -167,10 +167,23 @@ public class SatisfactionOptimizer {
         }
     }
 
-
-    int[] checkForSolution(int[][] p) {
-        return null;
+    /**
+     * Checks to see if all the columns have a match
+     *
+     * @param mCols
+     * @return true = solution found | false = solution not found
+     */
+    boolean checkForSolution(int[] mCols) {
+        if (mCols != null && mCols.length > 0) {
+            for (int m : mCols) {
+                if (0 == m) return false;
+            }
+            return true;
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
+
 
     int[][] adjustElements(int[][] p, int[][] t) {
         return null;
