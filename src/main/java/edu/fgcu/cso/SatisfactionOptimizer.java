@@ -128,34 +128,42 @@ public class SatisfactionOptimizer {
 
 
     void markTheZeroRows(int[][] cM, int[] mRows, int[] mCols) {
-        // find the minimum uncovered value
-        float minUncoveredValue = Integer.MAX_VALUE;
-        for (int i = 0; i < cM.length; i++) {
-            if (0 == mRows[i]) {
-                for (int j = 0; j < cM[i].length; j++) {
-                    if (0 == mCols[j] && cM[i][j] < minUncoveredValue) {
-                        minUncoveredValue = cM[i][j];
+
+        if (cM != null && cM.length > 0
+                && mRows != null && mRows.length > 0
+                && mCols != null && mCols.length > 0) {
+
+            // find the minimum uncovered value
+            float minUncoveredValue = Integer.MAX_VALUE;
+            for (int i = 0; i < cM.length; i++) {
+                if (0 == mRows[i]) {
+                    for (int j = 0; j < cM[i].length; j++) {
+                        if (0 == mCols[j] && cM[i][j] < minUncoveredValue) {
+                            minUncoveredValue = cM[i][j];
+                        }
                     }
                 }
             }
-        }
 
-        // add the min value to all covered rows
-        for (int i = 0; i < mRows.length; i++) {
-            if (1 == mRows[i]) {
-                for (int j = 0; j < cM[i].length; j++) {
-                    cM[i][j] += minUncoveredValue;
+            // add the min value to all covered rows
+            for (int i = 0; i < mRows.length; i++) {
+                if (1 == mRows[i]) {
+                    for (int j = 0; j < cM[i].length; j++) {
+                        cM[i][j] += minUncoveredValue;
+                    }
                 }
             }
-        }
 
-        // subtract the min value from all uncovered columns
-        for (int i = 0; i < mCols.length; i++) {
-            if (0 == mCols[i]) {
-                for (int j = 0; j < cM.length; j++) {
-                    cM[j][i] -= minUncoveredValue;
+            // subtract the min value from all uncovered columns
+            for (int i = 0; i < mCols.length; i++) {
+                if (0 == mCols[i]) {
+                    for (int j = 0; j < cM.length; j++) {
+                        cM[j][i] -= minUncoveredValue;
+                    }
                 }
             }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
         }
     }
 

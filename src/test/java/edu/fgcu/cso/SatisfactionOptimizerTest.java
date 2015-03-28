@@ -160,6 +160,19 @@ public class SatisfactionOptimizerTest {
         }
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testMarkTheZeroRowsNull() {
+
+        int[] testMRows = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        satisfactionOptimizer.markTheZeroRows(null, testMRows, testMCols);
+        satisfactionOptimizer.markTheZeroRows(testMatrix, null, testMCols);
+        satisfactionOptimizer.markTheZeroRows(testMatrix, testMRows, null);
+        satisfactionOptimizer.markTheZeroRows(null, null, null);
+    }
+
+
 
     @Test
     public void testCheckForSolutionNoSolution() {
