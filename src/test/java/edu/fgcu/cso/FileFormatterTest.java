@@ -49,11 +49,11 @@ public class FileFormatterTest {
         assertNotNull("int array returned was null", dataRead);
 
         int[][] knownDataInFile =
-                {{1, 2, 3, 4, 5},
-                        {6, 7, 8, 9, 10},
-                        {11, 12, 13, 14, 15},
-                        {16, 17, 18, 19, 20},
-                        {21, 22, 23, 24, 25}};
+                {{1,   2,  3,  4,  5},
+                 {6,   7,  8,  9, 10},
+                 {11, 12, 13, 14, 15},
+                 {16, 17, 18, 19, 20},
+                 {21, 22, 23, 24, 25}};
 
         assertEquals("outer dimensions of input do not match dimensions of output", knownDataInFile.length, dataRead.length);
         for (int i = 0; i < knownDataInFile.length; i++) {
@@ -140,11 +140,11 @@ public class FileFormatterTest {
     public void testParseData() {
         String[][] initialData =
                 {{"1", "2", "3", "4", "5"},
-                        {"6", "7", "8", "9", "10"}};
+                 {"6", "7", "8", "9", "10"}};
 
         int[][] targetData =
                 {{1, 2, 3, 4, 5},
-                        {6, 7, 8, 9, 10}};
+                 {6, 7, 8, 9, 10}};
 
         int[][] dataRead = fileFormatter.parseData(initialData);
 
@@ -163,7 +163,7 @@ public class FileFormatterTest {
     public void testParseDataError() {
         String[][] initialData =
                 {{"1", "2", "c", "4", "5"},
-                        {"6", "7", "8", "9", "10"}};
+                 {"6", "7", "8", "9", "10"}};
 
         int[][] dataRead = fileFormatter.parseData(initialData);
 
@@ -174,8 +174,8 @@ public class FileFormatterTest {
     public void testCheckSquareTrue() {
         String[][] initialData =
                 {{"1", "2", "3"},
-                        {"4", "5", "6"},
-                        {"7", "8", "9"}};
+                 {"4", "5", "6"},
+                 {"7", "8", "9"}};
 
         assertTrue("square matrix, does not return true", fileFormatter.checkSquare(initialData));
     }
@@ -184,8 +184,8 @@ public class FileFormatterTest {
     public void testCheckSquareFalse() {
         String[][] initialData =
                 {{"1", "2", "3"},
-                        {"4", "5"},
-                        {"6", "7", "8"}};
+                 {"4", "5"},
+                 {"6", "7", "8"}};
 
         assertFalse("Non-square matrix, returns true", fileFormatter.checkSquare(initialData));
     }
