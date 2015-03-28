@@ -5,15 +5,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
 /**
- * Created by William on 3/22/2015.
+ *  Test Class For SatisfactionOptimizer.class
  */
 public class SatisfactionOptimizerTest {
 
     SatisfactionOptimizer satisfactionOptimizer;
     private int[][] testMatrix = new int[][]{{1, 2, 3}, {3, 2, 1}, {3, 2, 1}};
-
 
     @Before
     public void setup() {
@@ -23,7 +21,6 @@ public class SatisfactionOptimizerTest {
     public SatisfactionOptimizerTest() {
 
     }
-
 
     //testCalcCSO Tests
     @Test

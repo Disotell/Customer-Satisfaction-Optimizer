@@ -3,8 +3,8 @@ package edu.fgcu.cso;
 import java.util.Arrays;
 
 /**
- *  Finds the Optimal Customer Satisfaction
- *  from a Weighted Square Matrix
+ * Finds the Optimal Customer Satisfaction
+ * from a Weighted Square Matrix
  */
 public class SatisfactionOptimizer {
 
@@ -48,11 +48,7 @@ public class SatisfactionOptimizer {
         if (a != null && a.length > 0) {
             b = new int[a.length][];
             for (int i = 0; i < a.length; i++) {
-                if (i < a.length) {
                     b[i] = Arrays.copyOf(a[i], a[i].length);
-                } else {
-                    b[i] = new int[a[i].length];
-                }
             }
         } else {
             throw new ArrayIndexOutOfBoundsException();
@@ -201,7 +197,6 @@ public class SatisfactionOptimizer {
     }
 
     int[][] adjustElements(int[][] p, int[][] t) {
-
         return null;
     }
 
