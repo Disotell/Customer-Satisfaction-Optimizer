@@ -72,7 +72,7 @@ public class SatisfactionOptimizer {
         if (a != null && a.length > 0) {
             b = new int[a.length][];
             for (int i = 0; i < a.length; i++) {
-                if (i != 0) {
+                if (i < a.length) {
                     b[i] = Arrays.copyOf(a[i], a[i].length);
                 } else {
                     b[i] = new int[a[i].length];
