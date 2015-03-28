@@ -3,9 +3,7 @@ package edu.fgcu.cso;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 /**
@@ -26,6 +24,8 @@ public class SatisfactionOptimizerTest {
 
     }
 
+
+    //testCalcCSO Tests
     @Test
     public void testCalcCSO() {
         throw new RuntimeException();
@@ -76,6 +76,7 @@ public class SatisfactionOptimizerTest {
     }
 
 
+    //ReduceMatrixRowAndCol Tests
     @Test
     public void testReduceMatrixRowAndCol() {
         int[][] testReduceRowColMatrix = new int[][]{{0, 0, 2}, {2, 0, 0}, {2, 0, 0}};
@@ -138,6 +139,7 @@ public class SatisfactionOptimizerTest {
         }
     }
 
+    //MarkTheZeroRows Tests
     @Test
     public void testMarkTheZeroRows() {
 
@@ -185,6 +187,8 @@ public class SatisfactionOptimizerTest {
         satisfactionOptimizer.markTheZeroRows(new int[0][0], new int[0], new int[0]);
     }
 
+
+    //CheckForSolution Tests
     @Test
     public void testCheckForSolutionNoSolution() {
         int[] testNoSolution = new int[]{0, 0, 0};
@@ -208,6 +212,7 @@ public class SatisfactionOptimizerTest {
     }
 
 
+    //AdjustElements Tests
     @Test
     public void testAdjustElementsNoChange() {
         throw new RuntimeException();

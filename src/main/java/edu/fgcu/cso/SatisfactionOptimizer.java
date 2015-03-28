@@ -24,7 +24,6 @@ public class SatisfactionOptimizer {
 
 
         return null;
-
     }
 
     /**
@@ -183,7 +182,6 @@ public class SatisfactionOptimizer {
             throw new ArrayIndexOutOfBoundsException();
         }
     }
-
 
     int[][] adjustElements(int[][] p, int[][] t) {
         return null;
