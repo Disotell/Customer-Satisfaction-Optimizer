@@ -1,37 +1,60 @@
 package edu.fgcu.cso;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
- * Created by William on 3/11/2015.
+ * Finds the Optimal Customer Satisfaction
+ * from a Weighted Square Matrix
  */
 public class SatisfactionOptimizer {
 
-
-
-
-    public SatisfactionOptimizer() {
-
-    }
-
     public int[] calcCSO(int[][] costmatrix) {
-        int[][] cM = new int[costmatrix.length][costmatrix.length];
-        cM = reverseMinMax(costmatrix);
+        //Initializes Arrays
 
+        int[][] costMatrix = copy2DArray(costmatrix);
+        int[][] cM = reverseMinMax(costMatrix);
+
+        // 1s mean covered, 0s mean not covered
+        int[] mRows = new int[cM.length];
+        int[] mCols = new int[cM[0].length];
+
+
+        int[] zerosByRow = new int[costMatrix.length];
+        int[] zerosByCol = new int[costMatrix[0].length];
+        int[] onlyZeroByRow = new int[costmatrix.length];
+
+        //Fill Arrays with -1
+        Arrays.fill(zerosByCol, -1);
+        Arrays.fill(zerosByRow, -1);
+        Arrays.fill(onlyZeroByRow, -1);
 
         // subtract minumum value from rows and columns to create lots of zeroes
         reduceMatrix(cM);
-        // 1s mean covered, 0s mean not covered
-        int[] coveredRows = new int[cM.length];
-        int[] coveredCols = new int[cM[0].length];
+
+        markTheZeroRows(cM, mRows, mCols);
 
 
         return null;
-
     }
 
+    /**
+     * Copies Array a to b
+     *
+     * @param a Original Array
+     * @return b Copy of Array a
+     */
+    int[][] copy2DArray(int[][] a) {
+        int[][] b;
+        if (a != null && a.length > 0) {
+            b = new int[a.length][];
+            for (int i = 0; i < a.length; i++) {
+                    b[i] = Arrays.copyOf(a[i], a[i].length);
+            }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return b;
+    }
 
     /**
      * Converts the data so Min and Max are inverted
@@ -39,47 +62,32 @@ public class SatisfactionOptimizer {
      * @param data Original Matrix
      * @return Formatted Matrix
      */
-    public int[][] reverseMinMax(int[][] data) {
-        int max = Integer.MIN_VALUE;
-        int[][] nData = new int[data.length][data.length];
+    int[][] reverseMinMax(int[][] data) {
+        int[][] nData;
+        if (data != null && data.length > 0) {
+            int max = Integer.MIN_VALUE;
+            nData = new int[data.length][data.length];
 
-        //Get Max Value and negate Values
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data.length; j++) {
-                if (data[i][j] > max) {
-                    max = data[i][j];
+            //Get Max Value and negate Values
+            for (int i = 0; i < data.length; i++) {
+                for (int j = 0; j < data.length; j++) {
+                    if (data[i][j] > max) {
+                        max = data[i][j];
+                    }
+                    nData[i][j] = -data[i][j];
                 }
-                nData[i][j] = -data[i][j];
             }
-        }
 
-        //Add max Value to all Elements
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data.length; j++) {
-                nData[i][j] = nData[i][j] + max;
+            //Add max Value to all Elements
+            for (int i = 0; i < data.length; i++) {
+                for (int j = 0; j < data.length; j++) {
+                    nData[i][j] = nData[i][j] + max;
+                }
             }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
         }
         return nData;
-    }
-
-    /**
-     * Copies Array a to b
-     *
-     * @param a
-     * @param b
-     * @param dim
-     */
-   public void copy2DArray(int[][] a, int[][] b, int dim) {
-        //TODO Add addition Error Checking
-        if (a != null && b != null && dim > 0) {
-            for (int i = 0; i < dim; i++) {
-                if (i < a.length) {
-                    b[i] = Arrays.copyOf(a[i], dim);
-                } else {
-                    b[i] = new int[dim];
-                }
-            }
-        }
     }
 
     /**
@@ -87,86 +95,110 @@ public class SatisfactionOptimizer {
      * and subtract it's values from all elements
      * in that row
      *
-     * @param cM costMatrix
+     * @param cM costMatrix Cost Matrix
      */
-    public void reduceMatrix(int[][] cM) {
-        for (int i = 0; i < cM.length; i++) {
-            // find the min value in the row
-            int minRowVal = Integer.MAX_VALUE;
-            for (int j = 0; j < cM[i].length; j++) {
-                if (minRowVal > cM[i][j]) {
-                    minRowVal = cM[i][j];
-                }
-            }
-            // subtract it from all values in the row
-            for (int j = 0; j < cM[i].length; j++) {
-                cM[i][j] -= minRowVal;
-            }
-        }
+    void reduceMatrix(int[][] cM) {
 
-        // find the min value in the col
-        for (int i = 0; i < cM[0].length; i++) {
-            int minColVal = Integer.MAX_VALUE;
-            for (int j = 0; j < cM.length; j++) {
-                if (minColVal > cM[j][i]) {
-                    minColVal = cM[j][i];
+        if (cM != null && cM.length > 0) {
+            for (int i = 0; i < cM.length; i++) {
+                // find the min value in the row
+                int minRowVal = Integer.MAX_VALUE;
+                for (int j = 0; j < cM[i].length; j++) {
+                    if (minRowVal > cM[i][j]) {
+                        minRowVal = cM[i][j];
+                    }
+                }
+                // subtract it from all values in the row
+                for (int j = 0; j < cM[i].length; j++) {
+                    cM[i][j] -= minRowVal;
                 }
             }
-            // subtract it from all values in the col
-            for (int j = 0; j < cM.length; j++) {
-                cM[j][i] -= minColVal;
+
+            // find the min value in the col
+            for (int i = 0; i < cM[0].length; i++) {
+                int minColVal = Integer.MAX_VALUE;
+                for (int[] aCM : cM) {
+                    if (minColVal > aCM[i]) {
+                        minColVal = aCM[i];
+                    }
+                }
+                // subtract it from all values in the col
+                for (int j = 0; j < cM.length; j++) {
+                    cM[j][i] -= minColVal;
+                }
             }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
         }
     }
 
+    /**
+     * Identifys the rows and columns with Zeros
+     *
+     * @param cM    cost Matrix
+     * @param mRows row with zero
+     * @param mCols column with zero
+     */
+    void markTheZeroRows(int[][] cM, int[] mRows, int[] mCols) {
 
-    private void markTheZeroRows(int[][] cM, int[] mRows, int[] mCols) {
+        if (cM != null && cM.length > 0
+                && mRows != null && mRows.length > 0
+                && mCols != null && mCols.length > 0) {
 
-        // find the minimum uncovered value
-        float minUncoveredValue = Integer.MAX_VALUE;
-        for (int i = 0; i < cM.length; i++) {
-            if (0 == mRows[i]) {
-                for (int j = 0; j < cM[i].length; j++) {
-                    if (0 == mCols[j] && cM[i][j] < minUncoveredValue) {
-                        minUncoveredValue = cM[i][j];
+            // find the minimum uncovered value
+            float minUncoveredValue = Integer.MAX_VALUE;
+            for (int i = 0; i < cM.length; i++) {
+                if (0 == mRows[i]) {
+                    for (int j = 0; j < cM[i].length; j++) {
+                        if (0 == mCols[j] && cM[i][j] < minUncoveredValue) {
+                            minUncoveredValue = cM[i][j];
+                        }
                     }
                 }
             }
-        }
 
-        // add the min value to all covered rows
-        for (int i = 0; i < mRows.length; i++) {
-            if (1 == mRows[i]) {
-                for (int j = 0; j < cM[i].length; j++) {
-                    cM[i][j] += minUncoveredValue;
+            // add the min value to all covered rows
+            for (int i = 0; i < mRows.length; i++) {
+                if (1 == mRows[i]) {
+                    for (int j = 0; j < cM[i].length; j++) {
+                        cM[i][j] += minUncoveredValue;
+                    }
                 }
             }
-        }
 
-        // subtract the min value from all uncovered columns
-        for (int i = 0; i < mCols.length; i++) {
-            if (0 == mCols[i]) {
-                for (int j = 0; j < cM.length; j++) {
-                    cM[j][i] -= minUncoveredValue;
+            // subtract the min value from all uncovered columns
+            for (int i = 0; i < mCols.length; i++) {
+                if (0 == mCols[i]) {
+                    for (int j = 0; j < cM.length; j++) {
+                        cM[j][i] -= minUncoveredValue;
+                    }
                 }
             }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
         }
-
     }
 
-
-    int[] checkForSolution(int[][] p) {
-        return null;
-    }
-
-    int[][] markTheZeroRows(int[][] p) {
-        return null;
+    /**
+     * Checks to see if all the columns have a match
+     *
+     * @param mCols column with zero
+     * @return true = solution found | false = solution not found
+     */
+    boolean checkForSolution(int[] mCols) {
+        if (mCols != null && mCols.length > 0) {
+            for (int m : mCols) {
+                if (0 == m) return false;
+            }
+            return true;
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
 
     int[][] adjustElements(int[][] p, int[][] t) {
         return null;
     }
 
-
-}
+}//End of SatisfactionOptimizer
 

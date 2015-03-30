@@ -16,29 +16,29 @@ public class MainIT {
     SatisfactionOptimizer mockSatisfactionOptimizer;
 
     @Before
-    public void setup(){
+    public void setup() {
         main = new Main();
-        mockGUI = createMock("mockGUI", GUI.class );
+        mockGUI = createMock("mockGUI", GUI.class);
         mockFileFormatter = createMock("mockFileFormatter", FileFormatter.class);
-        mockSatisfactionOptimizer = createMock("mockHungarianAlgorithm", SatisfactionOptimizer.class );
+        mockSatisfactionOptimizer = createMock("mockHungarianAlgorithm", SatisfactionOptimizer.class);
     }
 
-    public MainIT(){
+    public MainIT() {
 
     }
 
     @Test
-    public void testStartFileFormatterIntegration(){
+    public void testStartFileFormatterIntegration() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testStartGUIIntegration(){
+    public void testStartGUIIntegration() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testStartHungarianIntegration(){
+    public void testStartHungarianIntegration() {
         throw new RuntimeException();
     }
 }

@@ -8,71 +8,71 @@ public class GUITest {
     GUI gui;
 
     @Before
-    public void setup(){
+    public void setup() {
         gui = new GUI();
     }
 
-    public GUITest(){
+    public GUITest() {
 
     }
 
     @Test
-    public void testBuildGUI(){
+    public void testBuildGUI() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testBuildGUINullMatrix(){
+    public void testBuildGUINullMatrix() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testBuildGUINullSolution(){
+    public void testBuildGUINullSolution() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testBuildGUIEmptyMatrix(){
+    public void testBuildGUIEmptyMatrix() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testBuildGUIEmptySolution(){
+    public void testBuildGUIEmptySolution() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testShowError(){
+    public void testShowError() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testShowErrorNullString(){
+    public void testShowErrorNullString() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testBuildMatrixPanel(){
+    public void testBuildMatrixPanel() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testCreateMatrix(){
+    public void testCreateMatrix() {
         throw new RuntimeException();
     }
 
     @Test(expected = RuntimeException.class)
-    public void testMatrixOptimalFontColor(){
+    public void testMatrixOptimalFontColor() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testMatrixNonOptimalFontColor(){
+    public void testMatrixNonOptimalFontColor() {
         throw new RuntimeException();
     }
 
     @Test
-    public void createUIComponents(){
+    public void createUIComponents() {
         throw new RuntimeException();
     }
 }

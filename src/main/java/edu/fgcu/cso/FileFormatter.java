@@ -22,9 +22,13 @@ public class FileFormatter {
      * @return
      */
     protected int[][] getData(File file) throws IOException{
+        if(file == null) return null;
+
         String[][] stringMatrix = readData(file);
 
-        checkSquare(stringMatrix);
+        if(!checkSquare(stringMatrix)){
+            return null;
+        }
 
         int[][] matrix = parseData(stringMatrix);
 

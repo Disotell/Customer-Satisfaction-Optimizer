@@ -17,46 +17,46 @@ public class MainTest {
     SatisfactionOptimizer mockSatisfactionOptimizer;
 
     @Before
-    public void setup(){
+    public void setup() {
         main = new Main();
-        mockGUI = createMock("mockGUI", GUI.class );
+        mockGUI = createMock("mockGUI", GUI.class);
         mockFileFormatter = createMock("mockFileFormatter", FileFormatter.class);
-        mockSatisfactionOptimizer = createMock("mockHungarianAlgorithm", SatisfactionOptimizer.class );
+        mockSatisfactionOptimizer = createMock("mockHungarianAlgorithm", SatisfactionOptimizer.class);
     }
 
-    public MainTest(){
+    public MainTest() {
 
     }
 
     @Test
-    public void testGetFile(){
+    public void testGetFile() {
         throw new RuntimeException();
     }
 
 
     @Test
-    public void testStart(){
+    public void testStart() {
 
         throw new RuntimeException();
     }
 
     @Test
-    public void testStartNullFile(){
+    public void testStartNullFile() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testStartNullData(){
+    public void testStartNullData() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testStartNullReversed(){
+    public void testStartNullReversed() {
         throw new RuntimeException();
     }
 
     @Test
-    public void testStartNullSolution(){
+    public void testStartNullSolution() {
         throw new RuntimeException();
     }
 
