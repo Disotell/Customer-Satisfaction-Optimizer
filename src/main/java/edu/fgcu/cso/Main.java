@@ -17,10 +17,12 @@ public class Main {
 
         try {
             initialMatrix = fileFormatter.getData(file);
-            solution = hungAlgo.calcCSO(initialMatrix);
         }
         catch (IOException ignored) {}
 
+        if(initialMatrix != null) {
+            solution = hungAlgo.calcCSO(initialMatrix);
+        }
 
         gui.buildGUI(initialMatrix, solution);
 

@@ -103,22 +103,68 @@ public class MainTest {
 
     @Test
     public void testStartNullFile() {
-        throw new RuntimeException();
+        try {
+            expect(mockFileFormatter.getData(null)).andReturn(null);
+        }catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException thrown when setting up expect");
+        }
+
+        mockGUI.buildGUI(null, null);
+        EasyMock.expectLastCall().once();
+        replay(mockFileFormatter,mockSatisfactionOptimizer, mockGUI, mockFile);
+
+        main.start(mockFileFormatter,mockSatisfactionOptimizer,mockGUI,null);
     }
 
     @Test
     public void testStartNullData() {
-        throw new RuntimeException();
+        try {
+            expect(mockFileFormatter.getData(mockFile)).andReturn(null);
+        }catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException thrown when setting up expect");
+        }
+
+        mockGUI.buildGUI(null, null);
+        EasyMock.expectLastCall().once();
+        replay(mockFileFormatter,mockSatisfactionOptimizer, mockGUI, mockFile);
+
+        main.start(mockFileFormatter,mockSatisfactionOptimizer,mockGUI,mockFile);
     }
 
     @Test
-    public void testStartNullReversed() {
-        throw new RuntimeException();
+    public void testStartIOException() {
+        try {
+            expect(mockFileFormatter.getData(mockFile)).andStubThrow(new IOException());
+        }catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException thrown when setting up expect");
+        }
+
+        mockGUI.buildGUI(null, null);
+        EasyMock.expectLastCall().once();
+        replay(mockFileFormatter,mockSatisfactionOptimizer, mockGUI, mockFile);
+
+        main.start(mockFileFormatter,mockSatisfactionOptimizer,mockGUI,mockFile);
     }
 
     @Test
     public void testStartNullSolution() {
-        throw new RuntimeException();
+        try {
+            expect(mockFileFormatter.getData(mockFile)).andReturn(exampleArray);
+        }catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException thrown when setting up expect");
+        }
+
+        expect(mockSatisfactionOptimizer.calcCSO(exampleArray)).andReturn(null);
+
+        mockGUI.buildGUI(exampleArray, null);
+        EasyMock.expectLastCall().once();
+        replay(mockFileFormatter,mockSatisfactionOptimizer, mockGUI, mockFile);
+
+        main.start(mockFileFormatter,mockSatisfactionOptimizer,mockGUI,mockFile);
     }
 
 }
