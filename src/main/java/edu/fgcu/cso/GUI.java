@@ -14,9 +14,9 @@ public class GUI {
 
     public void buildGUI(int[][] matrix, int[] solution) {
         if (matrix == null || solution == null) {
-            showError("IllegalState");
+            showError("IllegalState", "Error Message 1");
         } else if (matrix.length == 0 || solution.length == 0) {
-            showError("IllegalState2");
+            showError("IllegalState2", "Error Message 2");
         } else {
             createUIComponents(matrix, solution);
         }
@@ -25,8 +25,18 @@ public class GUI {
     /**
      * Shows the error message specified by the constructor
      */
-    public void showError(String error) {
-        //new DialogMessage(error) or something
+    public void showError(String error, String title) {
+        //JOptionPane.showMessageDialog(null, error, title, JOptionPane.ERROR_MESSAGE);
+        JFrame mainFrame = new JFrame("Error Message 1");
+        mainFrame.setBounds(0, 0, 700, 500);
+        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setBackground(Color.white);
+        mainFrame.setVisible(true);
+
+        mainFrame.add(new Panel(), BorderLayout.CENTER);
+
     }
 
     private void createUIComponents(int[][] matrix, int[] solution) {
