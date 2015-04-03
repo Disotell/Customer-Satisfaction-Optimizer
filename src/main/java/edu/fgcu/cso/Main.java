@@ -3,25 +3,32 @@ package edu.fgcu.cso;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by William on 3/11/2015.
  */
 public class Main {
 
-    private void start(FileFormatter fileFormatter, SatisfactionOptimizer hungAlgo, GUI gui) {
-        /*
-        File file = getFile();
+    public void start(FileFormatter fileFormatter, SatisfactionOptimizer hungAlgo, GUI gui, File file) {
 
-        int[][] initialMatrix = fileFormatter.getData(file);
+        int[][] initialMatrix = null;
+        int[] solution = null;
 
-        int[] solution = hungAlgo.calcCSO(initialMatrix);
+        try {
+            initialMatrix = fileFormatter.getData(file);
+        }
+        catch (IOException ignored) {}
+
+        if(initialMatrix != null) {
+            solution = hungAlgo.calcCSO(initialMatrix);
+        }
 
         gui.buildGUI(initialMatrix, solution);
-        */
+
     }
 
-    private File getFile() {
+    public File getFile() {
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Please choose a a file containing a Satisfaction Matrix");
@@ -37,6 +44,6 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        main.start(new FileFormatter(), new SatisfactionOptimizer(), new GUI());
+        main.start(new FileFormatter(), new SatisfactionOptimizer(), new GUI(), main.getFile());
     }
 }

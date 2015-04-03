@@ -48,7 +48,7 @@ public class SatisfactionOptimizer {
         if (a != null && a.length > 0) {
             b = new int[a.length][];
             for (int i = 0; i < a.length; i++) {
-                    b[i] = Arrays.copyOf(a[i], a[i].length);
+                b[i] = Arrays.copyOf(a[i], a[i].length);
             }
         } else {
             throw new ArrayIndexOutOfBoundsException();
