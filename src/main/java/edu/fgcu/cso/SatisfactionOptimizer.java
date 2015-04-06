@@ -21,9 +21,9 @@ public class SatisfactionOptimizer {
         int[] mCols = new int[cM[0].length];
 
 
-        int[] zerosByRow = new int[costMatrix.length];
-        int[] zerosByCol = new int[costMatrix[0].length];
-        int[] onlyZeroByRow = new int[costmatrix.length];
+        int[] zerosByRow = new int[cM.length];
+        int[] zerosByCol = new int[cM[0].length];
+        int[] onlyZeroByRow = new int[cM.length];
 
         //Fill Arrays with -1
         Arrays.fill(zerosByCol, -1);
@@ -275,6 +275,7 @@ public class SatisfactionOptimizer {
 
     /**
      * finds some unmatched zeros and and zeros only in col & row
+     *
      * @param cM
      * @param zerosByRow
      * @param mRows
@@ -286,22 +287,43 @@ public class SatisfactionOptimizer {
                 && zerosByRow != null && zerosByRow.length > 0
                 && mRows != null && mRows.length > 0
                 && mCols != null && mCols.length > 0) {
-        for (int i = 0; i < cM.length; i++) {
-            if (1 == mRows[i]) continue;
-            for (int j = 0; j < cM[i].length; j++) {
-                if (0 == cM[i][j] && 0 == mCols[j]) {
-                    zerosByRow[i] = j;
-                    return new int[]{i,j};
+            for (int i = 0; i < cM.length; i++) {
+                if (1 == mRows[i]) continue;
+                for (int j = 0; j < cM[i].length; j++) {
+                    if (0 == cM[i][j] && 0 == mCols[j]) {
+                        zerosByRow[i] = j;
+                        return new int[]{i, j};
+                    }
                 }
             }
-        }
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
         return null;
     }
 
+    /**
+     * Updates matched columns
+     *
+     * @param zerosByCol zeros by column
+     * @param mCols      matches by column
+     */
+    void markMatchedColumnsZeroes(int[] zerosByCol, int[] mCols) {
+        if (zerosByCol != null && zerosByCol.length > 0
+                && mCols != null && mCols.length > 0) {
+            for (int i = 0; i < zerosByCol.length; i++) {
+                if(zerosByCol[i] == -1){
+                    mCols[i] = 0;
+                }
+                    else{
+                    mCols[i] = 1;
+                }
 
+            }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
 
 }//End of SatisfactionOptimizer
 

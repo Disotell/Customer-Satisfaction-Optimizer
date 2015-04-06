@@ -446,9 +446,69 @@ public class SatisfactionOptimizerTest {
         int[] testMCols = new int[testMatrix.length];
 
         satisfactionOptimizer.unmatchedZeroCheck(new int[0][0], testZerosByRow, testMRows, testMCols);
-        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, new int[0], testMRows,testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, new int[0], testMRows, testMCols);
         satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, new int[0], testMCols);
         satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, testMRows, new int[0]);
         satisfactionOptimizer.unmatchedZeroCheck(new int[0][0], new int[0], new int[0], new int[0]);
     }
+
+
+    //UnmatchedZeroCheck Tests
+    @Test
+    public void testMarkMatchedColumnsZeroes() {
+        int[] testZerosByCol  = new int[]{0, 0, 0};
+        int[] testMCols  = new int[]{0, 0, 0};
+
+        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol,testMCols);
+
+        int[] testAfterZerosByCol  = new int[]{0, 0, 0};
+        int[] testAfterMCols  = new int[]{1,1,1};
+
+        for (int i = 0; i < testZerosByCol.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
+                    testAfterZerosByCol[i], testZerosByCol[i]);
+            assertSame("Wrong Value Expected: " + testAfterMCols[i] + " Actual: " + testMCols[i],
+                    testAfterMCols[i], testMCols[i]);
+        }
+    }
+
+    @Test
+    public void testMarkMatchedColumnsZeroesNOChange() {
+        int[] testZerosByCol  = new int[]{-1, -1, -1};
+        int[] testMCols  = new int[]{0, 0, 0};
+
+        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol,testMCols);
+
+        int[] testAfterZerosByCol  = new int[]{-1, -1, -1};
+        int[] testAfterMCols  = new int[]{0,0,0};
+
+        for (int i = 0; i < testZerosByCol.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
+                    testAfterZerosByCol[i], testZerosByCol[i]);
+            assertSame("Wrong Value Expected: " + testAfterMCols[i] + " Actual: " + testMCols[i],
+                    testAfterMCols[i], testMCols[i]);
+        }
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testMarkMatchedColumnsZeroeskNull() {
+        int[] testZerosByCol = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        satisfactionOptimizer.markMatchedColumnsZeroes(null, testMCols);
+        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol, null);
+        satisfactionOptimizer.markMatchedColumnsZeroes(null, null);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testUMarkMatchedColumnsZeroesLength() {
+        int[] testZerosByCol = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        satisfactionOptimizer.markMatchedColumnsZeroes(new int[0], testMCols);
+        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol, new int[0]);
+        satisfactionOptimizer.markMatchedColumnsZeroes(new int[0], new int[0]);
+    }
 }
+
+
