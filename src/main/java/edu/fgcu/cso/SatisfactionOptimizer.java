@@ -1,6 +1,8 @@
 package edu.fgcu.cso;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Finds the Optimal Customer Satisfaction
@@ -32,7 +34,6 @@ public class SatisfactionOptimizer {
         reduceMatrix(cM);
 
         markTheZeroRows(cM, mRows, mCols);
-
 
         return null;
     }
@@ -96,7 +97,7 @@ public class SatisfactionOptimizer {
      * in that row
      *
      * @param cM costMatrix Cost Matrix
-     */
+     */ 
     void reduceMatrix(int[][] cM) {
 
         if (cM != null && cM.length > 0) {
@@ -138,7 +139,7 @@ public class SatisfactionOptimizer {
      * @param cM    cost Matrix
      * @param mRows row with zero
      * @param mCols column with zero
-     */
+     */ 
     void markTheZeroRows(int[][] cM, int[] mRows, int[] mCols) {
 
         if (cM != null && cM.length > 0
@@ -146,7 +147,7 @@ public class SatisfactionOptimizer {
                 && mCols != null && mCols.length > 0) {
 
             // find the minimum uncovered value
-            float minUncoveredValue = Integer.MAX_VALUE;
+            int minUncoveredValue = Integer.MAX_VALUE;
             for (int i = 0; i < cM.length; i++) {
                 if (0 == mRows[i]) {
                     for (int j = 0; j < cM[i].length; j++) {
@@ -188,7 +189,8 @@ public class SatisfactionOptimizer {
     boolean checkForSolution(int[] mCols) {
         if (mCols != null && mCols.length > 0) {
             for (int m : mCols) {
-                if (0 == m) return false;
+                if (0 == m) 
+                    return false;
             }
             return true;
         } else {
@@ -196,8 +198,51 @@ public class SatisfactionOptimizer {
         }
     }
 
-    int[][] adjustElements(int[][] p, int[][] t) {
-        return null;
+
+    /**
+     * 
+     * 
+     * @param solZero
+     * @param zerosByRow
+     * @param zerosByCol
+     * @param onlyZeroByRow
+     */
+    void adjustElements(int[] solZero, int[] zerosByRow, int[] zerosByCol, int[] onlyZeroByRow) {
+        if (solZero != null && solZero.length > 0
+                && zerosByRow != null && zerosByRow.length > 0
+                && zerosByCol != null && zerosByCol.length > 0
+                && onlyZeroByRow != null && onlyZeroByRow.length > 0) {
+
+            int i;
+            int j = solZero[1];
+
+            Set<int[]> zeroSequence = new LinkedHashSet<int[]>();
+            zeroSequence.add(solZero);
+
+            boolean matched = false;
+            do {
+                i = zerosByCol[j];
+                matched = -1 != i && zeroSequence.add(new int[]{i,j});
+                if (!matched) break;
+
+                j = onlyZeroByRow[i];
+                matched = -1 != j && zeroSequence.add(new int[]{ i, j });
+
+            } while (matched);
+
+            for (int[] zero : zeroSequence) {
+                if (zerosByCol[zero[1]] == zero[0]) {
+                    zerosByCol[zero[1]] = -1;
+                    zerosByRow[zero[0]] = -1;
+                }
+                if (onlyZeroByRow[zero[0]] == zero[1]) {
+                    zerosByRow[zero[0]] = zero[1];
+                    zerosByCol[zero[1]] = zero[0];
+                }
+            }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
 
 }//End of SatisfactionOptimizer

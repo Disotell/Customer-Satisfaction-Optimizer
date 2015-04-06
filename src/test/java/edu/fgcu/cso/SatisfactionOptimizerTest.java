@@ -25,7 +25,7 @@ public class SatisfactionOptimizerTest {
     //testCalcCSO Tests
     @Test
     public void testCalcCSO() {
-        throw new RuntimeException();
+         throw new RuntimeException();
     }
 
     // Copy2DArray Tests
@@ -52,8 +52,12 @@ public class SatisfactionOptimizerTest {
     // ReverseMinMax Tests
     @Test
     public void testReverseMinMax() {
-        int[][] testReverseMatrix = new int[][]{{2, 1, 0}, {0, 1, 2}, {0, 1, 2}};
+         int[][] testReverseMatrix = new int[][]{{2, 1, 0}, {0, 1, 2}, {0, 1, 2}};
+
+
         int[][] afterReverse = satisfactionOptimizer.reverseMinMax(testMatrix);
+
+
         for (int i = 0; i < afterReverse.length; i++) {
             for (int j = 0; j < afterReverse[i].length; j++) {
                 assertSame("Wrong Value Expected: " + testReverseMatrix[i][j] + " Actual: " + afterReverse[i][j],
@@ -211,12 +215,97 @@ public class SatisfactionOptimizerTest {
 
     //AdjustElements Tests
     @Test
-    public void testAdjustElementsNoChange() {
-        throw new RuntimeException();
+    public void testAdjustElements() {
+        int[] testSolZero = new int[]{4,3};
+        int[] testZerosByRow= new int[]{1,5,0,2,-1,3};
+        int[] testZerosByCol=  new int[]{2,0,3,5,-1,1};
+        int[] testOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+
+        satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, testOnlyZeroByRow);
+
+        int[] testAfterSolZero = new int[]{4,3};
+        int[] testAfterZerosByRow= new int[]{1,5,0,2,3,4};
+        int[] testAfterZerosByCol= new int[]{2,0,3,4,5,1};
+        int[] testAfterOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+
+
+        for (int i = 0; i < testSolZero.length; i++) {
+
+            assertSame("Wrong Value Expected: " + testAfterSolZero[i] + " Actual: " + testSolZero[i],
+                    testAfterSolZero[i], testSolZero[i]);
+        }
+        for (int i = 0; i < testZerosByRow.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
+                    testAfterZerosByRow[i], testZerosByRow[i]);
+
+            assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
+                    testAfterZerosByCol[i], testZerosByCol[i]);
+
+            assertSame("Wrong Value Expected: " + testAfterOnlyZeroByRow[i] + " Actual: " + testOnlyZeroByRow[i],
+                    testAfterOnlyZeroByRow[i], testOnlyZeroByRow[i]);
+        }
     }
 
     @Test
-    public void testAdjustElements() {
-        throw new RuntimeException();
+    public void testAdjustElementsNoChange() {
+        int[] testSolZero = new int[]{4,3};
+        int[] testZerosByRow= new int[]{1,5,0,2,-1,3};
+        int[] testZerosByCol=  new int[]{2,0,3,-1,-1,1};
+        int[] testOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+
+        satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, testOnlyZeroByRow);
+
+        int[] testAfterSolZero = new int[]{4,3};
+        int[] testAfterZerosByRow= new int[]{1,5,0,2,3,3};
+        int[] testAfterZerosByCol= new int[]{2,0,3,4,-1,1};
+        int[] testAfterOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+
+        for (int i = 0; i < testSolZero.length; i++) {
+
+            assertSame("Wrong Value Expected: " + testAfterSolZero[i] + " Actual: " + testSolZero[i],
+                    testAfterSolZero[i], testSolZero[i]);
+        }
+
+        for (int i = 0; i < testZerosByRow.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
+                    testAfterZerosByRow[i], testZerosByRow[i]);
+
+            assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
+                    testAfterZerosByCol[i], testZerosByCol[i]);
+
+            assertSame("Wrong Value Expected: " + testAfterOnlyZeroByRow[i] + " Actual: " + testOnlyZeroByRow[i],
+                    testAfterOnlyZeroByRow[i], testOnlyZeroByRow[i]);
+        }
     }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAdjustElementsNull() {
+        int[] testSolZero = new int[testMatrix.length];
+        int[] testZerosByRow= new int[testMatrix.length];
+        int[] testZerosByCol= new int[testMatrix.length];
+        int[] testOnlyZeroByRow= new int[testMatrix.length];
+
+        satisfactionOptimizer.adjustElements(null, testZerosByRow, testZerosByCol, testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, null,testZerosByCol, testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, null, testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, null);
+        satisfactionOptimizer.adjustElements(null, null, null, null);
+    }
+
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAdjustElementsLength() {
+        int[] testSolZero = new int[testMatrix.length];
+        int[] testZerosByRow= new int[testMatrix.length];
+        int[] testZerosByCol= new int[testMatrix.length];
+        int[] testOnlyZeroByRow= new int[testMatrix.length];
+
+        satisfactionOptimizer.adjustElements(new int[0], testZerosByRow, testZerosByCol, testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, new int[0], testZerosByCol, testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, new int[0], testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, new int[0]);
+        satisfactionOptimizer.adjustElements(new int[0], new int[0], new int[0], new int[0]);
+    }
+
+
 }
