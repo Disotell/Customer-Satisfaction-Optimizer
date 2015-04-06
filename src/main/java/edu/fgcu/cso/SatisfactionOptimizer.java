@@ -273,5 +273,35 @@ public class SatisfactionOptimizer {
     }
 
 
+    /**
+     * finds some unmatched zeros and and zeros only in col & row
+     * @param cM
+     * @param zerosByRow
+     * @param mRows
+     * @param mCols
+     * @return row and col of new matched only zero
+     */
+    int[] unmatchedZeroCheck(int[][] cM, int[] zerosByRow, int[] mRows, int[] mCols) {
+        if (cM != null && cM.length > 0
+                && zerosByRow != null && zerosByRow.length > 0
+                && mRows != null && mRows.length > 0
+                && mCols != null && mCols.length > 0) {
+        for (int i = 0; i < cM.length; i++) {
+            if (1 == mRows[i]) continue;
+            for (int j = 0; j < cM[i].length; j++) {
+                if (0 == cM[i][j] && 0 == mCols[j]) {
+                    zerosByRow[i] = j;
+                    return new int[]{i,j};
+                }
+            }
+        }
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return null;
+    }
+
+
+
 }//End of SatisfactionOptimizer
 

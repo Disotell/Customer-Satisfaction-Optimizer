@@ -358,4 +358,97 @@ public class SatisfactionOptimizerTest {
         satisfactionOptimizer.initZeros(testMatrix, testZerosByRow, new int[0]);
         satisfactionOptimizer.initZeros(new int[0][0], new int[0], new int[0]);
     }
+
+    //UnmatchedZeroCheck Tests
+    @Test
+    public void testUnmatchedZeroCheckWithReturn() {
+        int[][] testUnmatchedMatrix = new int[][]{{1, 1, 2}, {2, 0, 1}, {2, 2, 1}};
+        int[] testZerosByRow  = new int[]{-1, -1, -1};
+        int[] testMRows  = new int[]{-1, -1, -1};
+        int[] testMCols  = new int[]{-1, 0, -1};
+
+        int[] testReturn = satisfactionOptimizer.unmatchedZeroCheck( testUnmatchedMatrix, testZerosByRow, testMRows, testMCols);
+
+        int[][] testAfterUnmatchedMatrix = new int[][]{{1, 1, 2}, {2, 0, 1}, {2, 2, 1}};
+        int[] testAfterZerosByRow  = new int[]{-1, 1, -1};
+        int[] testAfterMRows  = new int[]{-1, -1, -1};
+        int[] testAfterMCols  = new int[]{-1, 0, -1};
+        int[] testAfterReturn = new int[]{1,1};
+
+        assertNotNull("Return was Null", testReturn);
+
+        for (int i = 0; i < testReturn.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterReturn[i] + " Actual: " + testReturn[i],
+                    testAfterReturn[i], testReturn[i]);
+        }
+
+        for (int i = 0; i < testMatrix.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
+                    testAfterZerosByRow[i], testZerosByRow[i]);
+            assertSame("Wrong Value Expected: " + testAfterMRows[i] + " Actual: " + testMRows[i],
+                    testAfterMRows[i], testMRows[i]);
+            assertSame("Wrong Value Expected: " + testAfterMCols[i] + " Actual: " + testMCols[i],
+                    testAfterMCols[i], testMCols[i]);
+            for (int j = 0; j < testUnmatchedMatrix[i].length; j++) {
+                assertSame("Wrong Value Expected: " + testAfterUnmatchedMatrix[i][j] + " Actual: " + testUnmatchedMatrix[i][j],
+                        testAfterUnmatchedMatrix[i][j], testUnmatchedMatrix[i][j]);
+            }
+        }
+    }
+
+    @Test
+    public void testUnmatchedZeroCheckReturnNull() {
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testMRows = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        int[] testReturn = satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, testMRows, testMCols);
+
+        int[] testAfterZerosByRow = new int[]{0, 0, 0};
+        int[] testAfterMRows = new int[]{0, 0, 0};
+        int[] testAfterMCols = new int[]{0, 0, 0};
+        int[][] testAfterMatrix = new int[][]{{1, 2, 3}, {3, 2, 1}, {3, 2, 1}};
+
+
+        assertNull("Return was not Null",testReturn);
+
+        for (int i = 0; i < testMatrix.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
+                    testAfterZerosByRow[i], testZerosByRow[i]);
+            assertSame("Wrong Value Expected: " + testAfterMRows[i] + " Actual: " + testMRows[i],
+                    testAfterMRows[i], testMRows[i]);
+            assertSame("Wrong Value Expected: " + testAfterMCols[i] + " Actual: " + testMCols[i],
+                    testAfterMCols[i], testMCols[i]);
+            for (int j = 0; j < testMatrix[i].length; j++) {
+                assertSame("Wrong Value Expected: " + testAfterMatrix[i][j] + " Actual: " + testMatrix[i][j],
+                        testAfterMatrix[i][j], testMatrix[i][j]);
+            }
+        }
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testUnmatchedZeroCheckNull() {
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testMRows = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        satisfactionOptimizer.unmatchedZeroCheck(null, testZerosByRow, testMRows, testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, null, testMRows, testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, null, testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, testMRows, null);
+        satisfactionOptimizer.unmatchedZeroCheck(null, null, null, null);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testUnmatchedZeroCheckLength() {
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testMRows = new int[testMatrix.length];
+        int[] testMCols = new int[testMatrix.length];
+
+        satisfactionOptimizer.unmatchedZeroCheck(new int[0][0], testZerosByRow, testMRows, testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, new int[0], testMRows,testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, new int[0], testMCols);
+        satisfactionOptimizer.unmatchedZeroCheck(testMatrix, testZerosByRow, testMRows, new int[0]);
+        satisfactionOptimizer.unmatchedZeroCheck(new int[0][0], new int[0], new int[0], new int[0]);
+    }
 }
