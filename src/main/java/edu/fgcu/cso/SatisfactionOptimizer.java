@@ -11,6 +11,7 @@ import java.util.Set;
 public class SatisfactionOptimizer {
 
     public int[] calcCSO(int[][] costmatrix) {
+        if (costmatrix != null && costmatrix.length > 0) {
         //Initializes Arrays
 
         int[][] costMatrix = copy2DArray(costmatrix);
@@ -32,10 +33,44 @@ public class SatisfactionOptimizer {
 
         // subtract minumum value from rows and columns to create lots of zeroes
         reduceMatrix(cM);
+            // subtract minumum value from rows and columns to create lots of zeroes
+            reduceMatrix(cM);
 
-        markTheZeroRows(cM, mRows, mCols);
+            //Find Initial Zeros and Matches
+            initZeros(cM, zerosByRow, zerosByCol);
+            markMatchedColumnsZeroes(zerosByCol, mCols);
 
-        return null;
+            while (!checkForSolution(mCols)) {
+
+                int[] solZero = unmatchedZeroCheck(cM, onlyZeroByRow, mRows, mCols);
+
+                while (solZero == null) {
+                    markTheZeroRows(cM, mRows, mCols);
+                    solZero = unmatchedZeroCheck(cM, onlyZeroByRow, mRows, mCols);
+                }
+
+                int columnIndex = zerosByRow[solZero[0]];
+                if (-1 == columnIndex) {
+
+                    adjustElements(solZero, zerosByRow, zerosByCol, onlyZeroByRow);
+                    Arrays.fill(onlyZeroByRow, -1);
+                    Arrays.fill(mRows, 0);
+                    Arrays.fill(mCols, 0);
+                    markMatchedColumnsZeroes(zerosByCol, mCols);
+                } else {
+                    mRows[solZero[0]] = 1;
+                    mCols[columnIndex] = 0;
+                }
+            }
+
+            //Returns Solution
+
+            return zerosByCol;
+
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
     }
 
     /**
