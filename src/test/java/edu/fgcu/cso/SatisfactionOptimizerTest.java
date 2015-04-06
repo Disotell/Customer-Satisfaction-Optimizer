@@ -307,5 +307,55 @@ public class SatisfactionOptimizerTest {
         satisfactionOptimizer.adjustElements(new int[0], new int[0], new int[0], new int[0]);
     }
 
+    //initZeros Tests
+    @Test
+    public void testInitZeros() {
+        int[][] testInitZerosMatrix = new int[][]{{0, 1, 2}, {2, 1, 0}, {2, 1, 0}};
+        int[] testZerosByRow= new int[]{-1,-1,-1};
+        int[] testZerosByCol=  new int[]{-1,-1,-1};
 
+        satisfactionOptimizer.initZeros(testInitZerosMatrix, testZerosByRow, testZerosByCol);
+
+        int[][] testAfterMatrix = new int[][]{{0, 1, 2}, {2, 1, 0}, {2, 1, 0}};
+        int[] testAfterZerosByRow= new int[]{0,2,-1};
+        int[] testAfterZerosByCol= new int[]{0,-1,1};
+
+        for (int i = 0; i < testZerosByRow.length; i++) {
+            assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
+                    testAfterZerosByRow[i], testZerosByRow[i]);
+
+            assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
+                    testAfterZerosByCol[i], testZerosByCol[i]);
+
+            for (int j = 0; j < testInitZerosMatrix[i].length; j++) {
+                assertSame("Wrong Value Expected: " + testAfterMatrix[i][j] + " Actual: " + testInitZerosMatrix[i][j],
+                        testAfterMatrix[i][j], testInitZerosMatrix[i][j]);
+            }
+
+        }
+    }
+
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testInitZerosNull() {
+        int[] testZerosByRow= new int[testMatrix.length];
+        int[] testZerosByCol= new int[testMatrix.length];
+
+        satisfactionOptimizer.initZeros(null, testZerosByRow, testZerosByCol);
+        satisfactionOptimizer.initZeros(testMatrix, null, testZerosByCol);
+        satisfactionOptimizer.initZeros(testMatrix, testZerosByRow, null);
+        satisfactionOptimizer.initZeros(null, null, null);
+    }
+
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testInitZerosLength() {
+        int[] testZerosByRow= new int[testMatrix.length];
+        int[] testZerosByCol= new int[testMatrix.length];
+
+        satisfactionOptimizer.initZeros(new int[0][0], testZerosByRow, testZerosByCol);
+        satisfactionOptimizer.initZeros(testMatrix, new int[0], testZerosByCol);
+        satisfactionOptimizer.initZeros(testMatrix, testZerosByRow, new int[0]);
+        satisfactionOptimizer.initZeros(new int[0][0], new int[0], new int[0]);
+    }
 }
