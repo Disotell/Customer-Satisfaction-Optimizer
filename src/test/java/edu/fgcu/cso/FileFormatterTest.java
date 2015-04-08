@@ -25,11 +25,11 @@ public class FileFormatterTest {
     @Before
     public void setup() {
         fileFormatter = new FileFormatter();
-        goodData = new File(TEST_FILE_DIRECTORY + "goodTestData.txt");
-        blankData = new File(TEST_FILE_DIRECTORY + "blankTestData.txt");
-        charData = new File(TEST_FILE_DIRECTORY + "charTestData.txt");
-        nonSquareData = new File(TEST_FILE_DIRECTORY + "nonSquareTestData.txt");
-        doesNotExist = new File("ThisIsANameIMadeUp.txt");
+        goodData = new File(TEST_FILE_DIRECTORY + "goodTestData.csv");
+        blankData = new File(TEST_FILE_DIRECTORY + "blankTestData.csv");
+        charData = new File(TEST_FILE_DIRECTORY + "charTestData.csv");
+        nonSquareData = new File(TEST_FILE_DIRECTORY + "nonSquareTestData.csv");
+        doesNotExist = new File("ThisIsANameIMadeUp.csv");
     }
 
     public FileFormatterTest() {
