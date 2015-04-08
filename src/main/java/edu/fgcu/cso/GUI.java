@@ -10,17 +10,22 @@ import java.awt.*;
 public class GUI {
     public static final String MAIN_WINDOW_NAME = "mainWindow";
     public static final String TABLE_NAME = "mainTable";
+    public static final String ERROR_LABEL = "errorLabel";
+
+    public JFrame frame;
 
     protected GUI() {
 
     }
 
     public void buildGUI(int[][] matrix, int[] solution) {
-        if (matrix == null || solution == null) {
-            showError("IllegalState", "Error Message 1");
-        } else if (matrix.length == 0 || solution.length == 0) {
-            showError("IllegalState2", "Error Message 2");
-        } else {
+        if (matrix == null || matrix.length == 0) {
+            showError("Error parsing data matrix from file", "Error Message 1");
+        }
+        else if(solution == null || solution.length == 0){
+            showError("Multiple or no solution found for matrix", "Error Message 2");
+        }
+        else {
             createUIComponents(matrix, solution);
         }
     }
@@ -29,33 +34,23 @@ public class GUI {
      * Shows the error message specified by the constructor
      */
     public void showError(String error, String title) {
+        if(error == null || title == null){
+            return;
+        }
 
-
-        JOptionPane.showMessageDialog(null, error, title, JOptionPane.ERROR_MESSAGE);
-
-/*
-        JFrame mainFrame = new JFrame(ERROR_TITLE);
-        mainFrame.setName(MAIN_WINDOW);
-        mainFrame.setBounds(0, 0, 700, 500);
-        mainFrame.setLayout(new BorderLayout());
-        mainFrame.setVisible(true);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setBackground(Color.white);
-
-
-
-        JButton temp2 = new JButton("MyButton");
-        temp2.setName("BUTTON");
-
+        JFrame frame = buildMainFrame();
+        frame.setTitle(title);
 
         JPanel panel = new JPanel();
-        panel.add(temp2);
-        mainFrame.add(panel, BorderLayout.CENTER);
 
-        mainFrame.setVisible(true);
+        JLabel errorLabel = new JLabel(error);
+        errorLabel.setName(ERROR_LABEL);
+
+        panel.add(errorLabel);
+        frame.add(panel);
+
+        frame.setVisible(true);
         panel.setVisible(true);
-        temp2.setVisible(true);
-        */
     }
 
     public void createUIComponents(int[][] matrix, int[] solution) {
@@ -85,10 +80,12 @@ public class GUI {
 
     public JFrame buildMainFrame() {
         JFrame mainFrame = new JFrame("Customer Satisfaction Optimizer");
+        mainFrame.setName(MAIN_WINDOW_NAME);
         mainFrame.setBounds(0, 0, 700, 500);
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setVisible(true);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame = mainFrame;
         return mainFrame;
     }
 
