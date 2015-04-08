@@ -2,31 +2,23 @@ package edu.fgcu.cso;
 
 
 import org.fest.swing.data.TableCell;
-import org.fest.swing.data.TableCellByColumnId;
-import org.fest.swing.data.TableCellFinder;
-import org.fest.swing.edt.GuiActionRunner;
-import org.fest.swing.edt.GuiQuery;
-import org.fest.swing.fixture.ColorFixture;
-import org.fest.swing.fixture.FrameFixture;
-import org.fest.swing.fixture.JTableFixture;
-import org.hamcrest.Matcher;
+
+import org.fest.swing.fixture.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.accessibility.AccessibleContext;
-import javax.swing.*;
-
 import static org.junit.Assert.*;
+import static edu.fgcu.cso.GUI.MAIN_WINDOW_NAME;
 import static edu.fgcu.cso.GUI.TABLE_NAME;
+import static edu.fgcu.cso.GUI.ERROR_LABEL;
 
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
 
 public class GUITest {
 
-    int[][] knownDataInFile = {
+    int[][] fakeDataSet = {
             {1,   2,  3,  4,  5},
             {6,   7,  8,  9, 10},
             {11, 12, 13, 14, 15},
@@ -35,10 +27,11 @@ public class GUITest {
 
     int[] fakeSolution = {3,   0,  2,  1,  4};
 
+    String guiSolutionError = "Multiple or no solution found for matrix";
+    String guiMatrixError = "Error parsing data matrix from file";
 
     GUI gui;
     FrameFixture window;
-
 
     @Before
     public void setup() {
@@ -47,27 +40,35 @@ public class GUITest {
 
     @After
     public void tearDown() {
+        if(gui != null && gui.frame != null) {
+            gui.frame.dispose();
+        }
+
         if(window != null){
             window.cleanUp();
         }
     }
 
+
     public GUITest() {
 
     }
 
+    private FrameFixture createFrameFixture(){
+        assertNotNull("Gui frame not created or set", gui.frame);
+        return new FrameFixture(gui.frame);
+    }
 
+    /**
+     * This method tests GUI::buildGUI() under with fake arrays of data and an
+     * example solution. The expected result is a JFrame being displayed to the user
+     * with the solution indices given being red
+     */
     @Test
     public void testBuildGUI() {
-        gui.buildGUI(knownDataInFile, fakeSolution);
+        gui.buildGUI(fakeDataSet, fakeSolution);
 
-        Frame[] runningFrames = JFrame.getFrames();
-
-        assertNotNull("Running frames returned null", runningFrames);
-        assertEquals("Running JFrames is not equal to 1", 1, runningFrames.length);
-        assertNotNull("Expected window is null",runningFrames[0]);
-
-        window = new FrameFixture(runningFrames[0]);
+        window = createFrameFixture();
 
         JTableFixture tableFixture = window.table(TABLE_NAME);
 
@@ -75,18 +76,18 @@ public class GUITest {
 
         String[][] values = tableFixture.contents();
 
-        assertNotNull("Table contents came back null",values);
-        assertEquals("Table number of rows does not match expected", knownDataInFile.length,values.length);
+        assertNotNull("Table contents came back null", values);
+        assertEquals("Table number of rows does not match expected", fakeDataSet.length, values.length);
 
         for(int i = 0; i < values.length; i++){
-            assertEquals("Columns in row " + i + " of retrieved do not match expected",knownDataInFile[i].length,values[i].length);
+            assertEquals("Columns in row " + i + " of retrieved do not match expected", fakeDataSet[i].length,values[i].length);
             for(int j = 0; j < values[i].length; j++){
-                assertEquals("Value in matrix not as expected", Integer.toString(knownDataInFile[i][j]), values[i][j]);
+                assertEquals("Value in matrix not as expected", Integer.toString(fakeDataSet[i][j]), values[i][j]);
             }
         }
 
-        for(int i = 0; i < knownDataInFile.length; i++){
-            for(int j = 0; j < knownDataInFile.length; j++){
+        for(int i = 0; i < fakeDataSet.length; i++){
+            for(int j = 0; j < fakeDataSet.length; j++){
                 ColorFixture foreground = tableFixture.foregroundAt(TableCell.row(i).column(j));
                 assertNotNull("foreground at index " + i + " " + j + " has returned null",foreground);
                 if(fakeSolution[i] == j){
@@ -103,32 +104,81 @@ public class GUITest {
 
     @Test
     public void testBuildGUINullMatrix() {
-        throw new RuntimeException();
+        gui.buildGUI(null, fakeSolution);
+
+        window = createFrameFixture();
+
+        JLabelFixture jLabelFixture = window.label(ERROR_LABEL);
+
+        assertNotNull("error label returned null", jLabelFixture);
+
+        jLabelFixture.requireText(guiMatrixError);
     }
 
     @Test
     public void testBuildGUINullSolution() {
-        throw new RuntimeException();
+        gui.buildGUI(fakeDataSet, null);
+
+        window = createFrameFixture();
+
+        JLabelFixture jLabelFixture = window.label(ERROR_LABEL);
+
+        assertNotNull("error label returned null", jLabelFixture);
+
+        jLabelFixture.requireText(guiSolutionError);
     }
 
     @Test
     public void testBuildGUIEmptyMatrix() {
-        throw new RuntimeException();
+        gui.buildGUI(new int[0][0], fakeSolution);
+
+        window = createFrameFixture();
+
+        JLabelFixture jLabelFixture = window.label(ERROR_LABEL);
+
+        assertNotNull("error label returned null", jLabelFixture);
+
+        jLabelFixture.requireText(guiMatrixError);
     }
 
     @Test
     public void testBuildGUIEmptySolution() {
-        throw new RuntimeException();
+        gui.buildGUI(fakeDataSet, new int[0]);
+
+        window = createFrameFixture();
+
+        JLabelFixture jLabelFixture = window.label(ERROR_LABEL);
+
+        assertNotNull("error label returned null", jLabelFixture);
+
+        jLabelFixture.requireText(guiSolutionError);
     }
 
     @Test
     public void testShowError() {
-        throw new RuntimeException();
+        String errorMessage = "Testing Error Message";
+        String errorTitle = "Testing Error Title";
+        gui.showError(errorMessage, errorTitle);
+
+        window = createFrameFixture();
+
+        JLabelFixture jLabelFixture = window.label(ERROR_LABEL);
+
+        assertNotNull("error label returned null", jLabelFixture);
+
+        jLabelFixture.requireText(errorMessage);
     }
 
     @Test
     public void testShowErrorNullString() {
-        throw new RuntimeException();
+        gui.showError(null,"title");
+        assertNull("Gui frame is not null",gui.frame);
+    }
+
+    @Test
+    public void testShowErrorNullTitle() {
+        gui.showError("Error", null);
+        assertNull("Gui frame is not null", gui.frame);
     }
 
     @Test
