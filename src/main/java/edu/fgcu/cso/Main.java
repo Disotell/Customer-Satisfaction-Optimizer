@@ -10,6 +10,8 @@ import java.io.IOException;
  */
 public class Main {
 
+    public static final String FILECHOOSER_NAME = "fileChooser";
+
     public void start(FileFormatter fileFormatter, SatisfactionOptimizer hungAlgo, GUI gui, File file) {
 
         int[][] initialMatrix = null;
@@ -29,12 +31,13 @@ public class Main {
     }
 
     public File getFile() {
-
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setName(FILECHOOSER_NAME);
         fileChooser.setDialogTitle("Please choose a a file containing a Satisfaction Matrix");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values (.csv)", "csv"));
+
         int returnValue = fileChooser.showOpenDialog(null);
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
+        if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().exists()) {
             return fileChooser.getSelectedFile();
         } else {
             return null;
