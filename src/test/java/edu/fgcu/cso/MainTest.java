@@ -4,6 +4,7 @@ import org.easymock.EasyMock;
 import org.easymock.internal.MocksControl;
 import org.easymock.internal.RecordState;
 import org.fest.swing.core.BasicRobot;
+import org.fest.swing.core.Robot;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 import org.junit.After;
@@ -29,7 +30,11 @@ public class MainTest {
     FileFormatter mockFileFormatter;
     SatisfactionOptimizer mockSatisfactionOptimizer;
     File mockFile;
+
+    JFileChooserFixture fileChooserFixture;
     File chosenFile;
+    Thread thread;
+    Robot robot;
 
     int[][] exampleArray =
             {{1,   2,  3,  4,  5},
@@ -52,6 +57,9 @@ public class MainTest {
     @After
     public void tearDown(){
         chosenFile = null;
+        if(thread != null && !thread.isInterrupted()) thread.interrupt();
+        if(robot != null) robot.cleanUp();
+
         //If either of the mocks have not been initialized to replay for
         //verification, they must be set
         if(isRecordState(mockGUI)){
@@ -78,61 +86,59 @@ public class MainTest {
         return MocksControl.getControl(mock).getState() instanceof RecordState;
     }
 
-
-    @Test
-    public void testGetGoodFile() {
+    private JFileChooserFixture startMainGetFile(){
         Runnable temp = new Runnable() {
             public void run() {
                 chosenFile = main.getFile();
             }
         };
-        Thread thread = new Thread(temp);
+        thread = new Thread(temp);
         thread.start();
 
-        org.fest.swing.core.Robot robot = BasicRobot.robotWithNewAwtHierarchy();
-        JFileChooserFixture fixture = new JFileChooserFixture(robot,Main.FILECHOOSER_NAME);
+        robot = BasicRobot.robotWithNewAwtHierarchy();
+        fileChooserFixture = new JFileChooserFixture(robot,Main.FILECHOOSER_NAME);
+        fileChooserFixture.requireVisible();
 
-        fixture.requireVisible();
+        return fileChooserFixture;
+    }
+
+    @Test
+    public void testGetGoodFile() {
+        startMainGetFile();
+
         File dir = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\");
         assertTrue("File directory does not exist",dir.exists());
-        fixture.setCurrentDirectory(dir);
+        fileChooserFixture.setCurrentDirectory(dir);
 
-        fixture.fileNameTextBox().enterText("goodTestData.csv");
-        fixture.approve();
+        fileChooserFixture.fileNameTextBox().enterText("goodTestData.csv");
+        fileChooserFixture.approve();
 
         assertNotNull("File returned was null", chosenFile);
         assertTrue("File found does not exist",chosenFile.exists());
-
-        thread.interrupt();
-        robot.cleanUp();
     }
 
     @Test
     public void testGetBadFile() {
-        Runnable temp = new Runnable() {
-            public void run() {
-                chosenFile = main.getFile();
-            }
-        };
-        Thread thread = new Thread(temp);
-        thread.start();
+        startMainGetFile();
 
-        org.fest.swing.core.Robot robot = BasicRobot.robotWithNewAwtHierarchy();
-        JFileChooserFixture fixture = new JFileChooserFixture(robot,Main.FILECHOOSER_NAME);
-
-        fixture.requireVisible();
+        fileChooserFixture.requireVisible();
 
         String madeUpFileName = "ANameIMadeUp.csv";
         File file = new File(madeUpFileName);
-        assertFalse("Expecting file not to exist",file.exists());
+        assertFalse("Expecting file not to exist", file.exists());
 
-        fixture.fileNameTextBox().enterText(madeUpFileName);
-        fixture.approve();
+        fileChooserFixture.fileNameTextBox().enterText(madeUpFileName);
+        fileChooserFixture.approve();
 
         assertNull("File returned was not null", chosenFile);
+    }
 
-        thread.interrupt();
-        robot.cleanUp();
+    @Test
+    public void testGetFileCanceled() {
+        startMainGetFile();
+
+        fileChooserFixture.cancel();
+        assertNull(chosenFile);
     }
 
     /**
