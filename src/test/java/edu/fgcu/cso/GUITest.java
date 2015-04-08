@@ -56,7 +56,9 @@ public class GUITest {
 
     private FrameFixture createFrameFixture(){
         assertNotNull("Gui frame not created or set", gui.frame);
-        return new FrameFixture(gui.frame);
+        FrameFixture frameFixture = new FrameFixture(gui.frame);
+        frameFixture.requireVisible();
+        return frameFixture;
     }
 
     /**
@@ -232,17 +234,38 @@ public class GUITest {
     }
 
     @Test
-    public void testMatrixOptimalFontColor() {
-        throw new RuntimeException();
-    }
-
-    @Test
-    public void testMatrixNonOptimalFontColor() {
-        throw new RuntimeException();
-    }
-
-    @Test
     public void createUIComponents() {
-        throw new RuntimeException();
+        gui.createUIComponents(fakeDataSet,fakeSolution);
+
+        window = createFrameFixture();
+
+        JTableFixture tableFixture = window.table(TABLE_NAME);
+
+        assertNotNull("TableFixture retrieved is null",tableFixture);
+
+        String[][] values = tableFixture.contents();
+
+        assertNotNull("Table contents came back null", values);
+        assertEquals("Table number of rows does not match expected", fakeDataSet.length, values.length);
+
+        for(int i = 0; i < values.length; i++){
+            assertEquals("Columns in row " + i + " of retrieved do not match expected", fakeDataSet[i].length,values[i].length);
+            for(int j = 0; j < values[i].length; j++){
+                assertEquals("Value in matrix not as expected", Integer.toString(fakeDataSet[i][j]), values[i][j]);
+            }
+        }
+
+        for(int i = 0; i < fakeDataSet.length; i++){
+            for(int j = 0; j < fakeDataSet.length; j++){
+                ColorFixture foreground = tableFixture.foregroundAt(TableCell.row(i).column(j));
+                assertNotNull("foreground at index " + i + " " + j + " has returned null",foreground);
+                if(fakeSolution[i] == j){
+                    foreground.requireEqualTo(Color.red);
+                }
+                else {
+                    foreground.requireEqualTo(Color.black);
+                }
+            }
+        }
     }
 }
