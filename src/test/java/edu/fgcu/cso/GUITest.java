@@ -1,6 +1,8 @@
 package edu.fgcu.cso;
 
 
+import junit.framework.TestCase;
+import org.fest.swing.core.BasicRobot;
 import org.fest.swing.data.TableCell;
 
 import org.fest.swing.fixture.*;
@@ -8,8 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.*;
+
 import static org.junit.Assert.*;
-import static edu.fgcu.cso.GUI.MAIN_WINDOW_NAME;
 import static edu.fgcu.cso.GUI.TABLE_NAME;
 import static edu.fgcu.cso.GUI.ERROR_LABEL;
 
@@ -32,6 +35,7 @@ public class GUITest {
 
     GUI gui;
     FrameFixture window;
+    org.fest.swing.core.Robot extraRobot;
 
     @Before
     public void setup() {
@@ -40,13 +44,9 @@ public class GUITest {
 
     @After
     public void tearDown() {
-        if(gui != null && gui.frame != null) {
-            gui.frame.dispose();
-        }
-
-        if(window != null){
-            window.cleanUp();
-        }
+        if(extraRobot != null) extraRobot.cleanUp();
+        if(gui != null && gui.frame != null) gui.frame.dispose();
+        if(window != null) window.cleanUp();
     }
 
 
@@ -171,8 +171,8 @@ public class GUITest {
 
     @Test
     public void testShowErrorNullString() {
-        gui.showError(null,"title");
-        assertNull("Gui frame is not null",gui.frame);
+        gui.showError(null, "title");
+        assertNull("Gui frame is not null", gui.frame);
     }
 
     @Test
@@ -183,12 +183,52 @@ public class GUITest {
 
     @Test
     public void testBuildMatrixPanel() {
-        throw new RuntimeException();
+        JPanel panel = gui.buildMatixPanel();
+        assertNotNull("panel returned null", panel);
+        assertEquals("Wrong background color", panel.getBackground(), Color.gray);
     }
 
     @Test
     public void testCreateMatrix() {
-        throw new RuntimeException();
+        JTable table = gui.createMatrix(fakeDataSet, fakeSolution);
+        assertNotNull("Table is null", table);
+        extraRobot = BasicRobot.robotWithNewAwtHierarchy();
+        JTableFixture tableFixture = new JTableFixture(extraRobot,table);
+
+        String[][] values = tableFixture.contents();
+
+        assertNotNull("Table contents came back null", values);
+        assertEquals("Table number of rows does not match expected", fakeDataSet.length, values.length);
+
+        for(int i = 0; i < values.length; i++){
+            assertEquals("Columns in row " + i + " of retrieved do not match expected", fakeDataSet[i].length,values[i].length);
+            for(int j = 0; j < values[i].length; j++){
+                assertEquals("Value in matrix not as expected", Integer.toString(fakeDataSet[i][j]), values[i][j]);
+            }
+        }
+
+        for(int i = 0; i < fakeDataSet.length; i++){
+            for(int j = 0; j < fakeDataSet.length; j++){
+                ColorFixture foreground = tableFixture.foregroundAt(TableCell.row(i).column(j));
+                assertNotNull("foreground at index " + i + " " + j + " has returned null", foreground);
+                if(fakeSolution[i] == j){
+                    foreground.requireEqualTo(Color.red);
+                }
+                else {
+                    foreground.requireEqualTo(Color.black);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testCreateMatrixNullSolution() {
+        assertNull("Table is not null", gui.createMatrix(fakeDataSet, null));
+    }
+
+    @Test
+    public void testCreateMatrixNullMatrix() {
+        assertNull("Table is not null", gui.createMatrix(null, fakeSolution));
     }
 
     @Test

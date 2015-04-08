@@ -90,6 +90,10 @@ public class GUI {
     }
 
     public JTable createMatrix(int[][] matrix, int[] solution) {
+        if(matrix == null || solution == null){
+            return null;
+        }
+
         JTable dataMatrix = new AccentedTable(matrix.length, matrix[0].length, solution);
         dataMatrix.setName(TABLE_NAME);
 
