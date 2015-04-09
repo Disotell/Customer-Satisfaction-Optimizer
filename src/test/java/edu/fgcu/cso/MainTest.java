@@ -7,6 +7,7 @@ import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
+import org.fest.swing.exception.ComponentLookupException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,12 +37,12 @@ public class MainTest {
     Thread thread;
     Robot robot;
 
-    int[][] exampleArray =
-            {{1,   2,  3,  4,  5},
-             {6,   7,  8,  9, 10},
-             {11, 12, 13, 14, 15},
-             {16, 17, 18, 19, 20},
-             {21, 22, 23, 24, 25}};
+    int[][] exampleArray = {
+                    {1,   2,  3,  4,  5},
+                    {6,   7,  8,  9, 10},
+                    {11, 12, 13, 14, 15},
+                    {16, 17, 18, 19, 20},
+                    {21, 22, 23, 24, 25}};
 
     int[] exampleSolution = {1, 2, 3, 4, 5};
 
@@ -96,7 +97,12 @@ public class MainTest {
         thread.start();
 
         robot = BasicRobot.robotWithNewAwtHierarchy();
-        fileChooserFixture = new JFileChooserFixture(robot,Main.FILECHOOSER_NAME);
+        try {
+            fileChooserFixture = new JFileChooserFixture(robot, Main.FILECHOOSER_NAME);
+        }
+        catch (ComponentLookupException e){
+            fail("Failed to find open GUI window, this message will be displayed when using Jenkins");
+        }
         fileChooserFixture.requireVisible();
 
         return fileChooserFixture;
