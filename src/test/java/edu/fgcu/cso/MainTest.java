@@ -96,11 +96,11 @@ public class MainTest {
         thread = new Thread(temp);
         thread.start();
 
-        robot = BasicRobot.robotWithNewAwtHierarchy();
         try {
+            robot = BasicRobot.robotWithNewAwtHierarchy();
             fileChooserFixture = new JFileChooserFixture(robot, Main.FILECHOOSER_NAME);
         }
-        catch (ComponentLookupException e){
+        catch (Exception e){
             fail("Failed to find open GUI window, this message will be displayed when using Jenkins");
         }
         fileChooserFixture.requireVisible();
