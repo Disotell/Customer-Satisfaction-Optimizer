@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *  Test Class For SatisfactionOptimizer.class
+ * Test Class For SatisfactionOptimizer.class
  */
 public class SatisfactionOptimizerTest {
 
@@ -20,6 +20,13 @@ public class SatisfactionOptimizerTest {
     @Before
     public void setup() {
         satisfactionOptimizer = new SatisfactionOptimizer();
+    }
+
+    //Constructor Test
+    @Test
+    public void testSatisfactionOptimizerTestConstructor() {
+        SatisfactionOptimizerTest sO = new SatisfactionOptimizerTest();
+        assertNotNull(sO);
     }
 
     //testCalcCSO Tests
@@ -140,7 +147,7 @@ public class SatisfactionOptimizerTest {
     // ReverseMinMax Tests
     @Test
     public void testReverseMinMax() {
-         int[][] testReverseMatrix = new int[][]{{2, 1, 0}, {0, 1, 2}, {0, 1, 2}};
+        int[][] testReverseMatrix = new int[][]{{2, 1, 0}, {0, 1, 2}, {0, 1, 2}};
 
 
         int[][] afterReverse = satisfactionOptimizer.reverseMinMax(testMatrix);
@@ -304,17 +311,17 @@ public class SatisfactionOptimizerTest {
     //AdjustElements Tests
     @Test
     public void testAdjustElements() {
-        int[] testSolZero = new int[]{4,3};
-        int[] testZerosByRow= new int[]{1,5,0,2,-1,3};
-        int[] testZerosByCol=  new int[]{2,0,3,5,-1,1};
-        int[] testOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+        int[] testSolZero = new int[]{4, 3};
+        int[] testZerosByRow = new int[]{1, 5, 0, 2, -1, 3};
+        int[] testZerosByCol = new int[]{2, 0, 3, 5, -1, 1};
+        int[] testOnlyZeroByRow = new int[]{-1, -1, -1, -1, 3, 4};
 
         satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, testOnlyZeroByRow);
 
-        int[] testAfterSolZero = new int[]{4,3};
-        int[] testAfterZerosByRow= new int[]{1,5,0,2,3,4};
-        int[] testAfterZerosByCol= new int[]{2,0,3,4,5,1};
-        int[] testAfterOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+        int[] testAfterSolZero = new int[]{4, 3};
+        int[] testAfterZerosByRow = new int[]{1, 5, 0, 2, 3, 4};
+        int[] testAfterZerosByCol = new int[]{2, 0, 3, 4, 5, 1};
+        int[] testAfterOnlyZeroByRow = new int[]{-1, -1, -1, -1, 3, 4};
 
 
         for (int i = 0; i < testSolZero.length; i++) {
@@ -336,17 +343,17 @@ public class SatisfactionOptimizerTest {
 
     @Test
     public void testAdjustElementsNoChange() {
-        int[] testSolZero = new int[]{4,3};
-        int[] testZerosByRow= new int[]{1,5,0,2,-1,3};
-        int[] testZerosByCol=  new int[]{2,0,3,-1,-1,1};
-        int[] testOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+        int[] testSolZero = new int[]{4, 3};
+        int[] testZerosByRow = new int[]{1, 5, 0, 2, -1, 3};
+        int[] testZerosByCol = new int[]{2, 0, 3, -1, -1, 1};
+        int[] testOnlyZeroByRow = new int[]{-1, -1, -1, -1, 3, 4};
 
         satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, testOnlyZeroByRow);
 
-        int[] testAfterSolZero = new int[]{4,3};
-        int[] testAfterZerosByRow= new int[]{1,5,0,2,3,3};
-        int[] testAfterZerosByCol= new int[]{2,0,3,4,-1,1};
-        int[] testAfterOnlyZeroByRow= new int[]{-1,-1,-1,-1,3,4};
+        int[] testAfterSolZero = new int[]{4, 3};
+        int[] testAfterZerosByRow = new int[]{1, 5, 0, 2, 3, 3};
+        int[] testAfterZerosByCol = new int[]{2, 0, 3, 4, -1, 1};
+        int[] testAfterOnlyZeroByRow = new int[]{-1, -1, -1, -1, 3, 4};
 
         for (int i = 0; i < testSolZero.length; i++) {
 
@@ -401,12 +408,12 @@ public class SatisfactionOptimizerTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAdjustElementsNull() {
         int[] testSolZero = new int[testMatrix.length];
-        int[] testZerosByRow= new int[testMatrix.length];
-        int[] testZerosByCol= new int[testMatrix.length];
-        int[] testOnlyZeroByRow= new int[testMatrix.length];
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testZerosByCol = new int[testMatrix.length];
+        int[] testOnlyZeroByRow = new int[testMatrix.length];
 
         satisfactionOptimizer.adjustElements(null, testZerosByRow, testZerosByCol, testOnlyZeroByRow);
-        satisfactionOptimizer.adjustElements(testSolZero, null,testZerosByCol, testOnlyZeroByRow);
+        satisfactionOptimizer.adjustElements(testSolZero, null, testZerosByCol, testOnlyZeroByRow);
         satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, null, testOnlyZeroByRow);
         satisfactionOptimizer.adjustElements(testSolZero, testZerosByRow, testZerosByCol, null);
         satisfactionOptimizer.adjustElements(null, null, null, null);
@@ -416,9 +423,9 @@ public class SatisfactionOptimizerTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAdjustElementsLength() {
         int[] testSolZero = new int[testMatrix.length];
-        int[] testZerosByRow= new int[testMatrix.length];
-        int[] testZerosByCol= new int[testMatrix.length];
-        int[] testOnlyZeroByRow= new int[testMatrix.length];
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testZerosByCol = new int[testMatrix.length];
+        int[] testOnlyZeroByRow = new int[testMatrix.length];
 
         satisfactionOptimizer.adjustElements(new int[0], testZerosByRow, testZerosByCol, testOnlyZeroByRow);
         satisfactionOptimizer.adjustElements(testSolZero, new int[0], testZerosByCol, testOnlyZeroByRow);
@@ -431,14 +438,14 @@ public class SatisfactionOptimizerTest {
     @Test
     public void testInitZeros() {
         int[][] testInitZerosMatrix = new int[][]{{0, 1, 2}, {2, 1, 0}, {2, 1, 0}};
-        int[] testZerosByRow= new int[]{-1,-1,-1};
-        int[] testZerosByCol=  new int[]{-1,-1,-1};
+        int[] testZerosByRow = new int[]{-1, -1, -1};
+        int[] testZerosByCol = new int[]{-1, -1, -1};
 
         satisfactionOptimizer.initZeros(testInitZerosMatrix, testZerosByRow, testZerosByCol);
 
         int[][] testAfterMatrix = new int[][]{{0, 1, 2}, {2, 1, 0}, {2, 1, 0}};
-        int[] testAfterZerosByRow= new int[]{0,2,-1};
-        int[] testAfterZerosByCol= new int[]{0,-1,1};
+        int[] testAfterZerosByRow = new int[]{0, 2, -1};
+        int[] testAfterZerosByCol = new int[]{0, -1, 1};
 
         for (int i = 0; i < testZerosByRow.length; i++) {
             assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
@@ -458,8 +465,8 @@ public class SatisfactionOptimizerTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testInitZerosNull() {
-        int[] testZerosByRow= new int[testMatrix.length];
-        int[] testZerosByCol= new int[testMatrix.length];
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testZerosByCol = new int[testMatrix.length];
 
         satisfactionOptimizer.initZeros(null, testZerosByRow, testZerosByCol);
         satisfactionOptimizer.initZeros(testMatrix, null, testZerosByCol);
@@ -470,8 +477,8 @@ public class SatisfactionOptimizerTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testInitZerosLength() {
-        int[] testZerosByRow= new int[testMatrix.length];
-        int[] testZerosByCol= new int[testMatrix.length];
+        int[] testZerosByRow = new int[testMatrix.length];
+        int[] testZerosByCol = new int[testMatrix.length];
 
         satisfactionOptimizer.initZeros(new int[0][0], testZerosByRow, testZerosByCol);
         satisfactionOptimizer.initZeros(testMatrix, new int[0], testZerosByCol);
@@ -483,17 +490,17 @@ public class SatisfactionOptimizerTest {
     @Test
     public void testUnmatchedZeroCheckWithReturn() {
         int[][] testUnmatchedMatrix = new int[][]{{1, 1, 2}, {2, 0, 1}, {2, 2, 1}};
-        int[] testZerosByRow  = new int[]{-1, -1, -1};
-        int[] testMRows  = new int[]{-1, -1, -1};
-        int[] testMCols  = new int[]{-1, 0, -1};
+        int[] testZerosByRow = new int[]{-1, -1, -1};
+        int[] testMRows = new int[]{-1, -1, -1};
+        int[] testMCols = new int[]{-1, 0, -1};
 
-        int[] testReturn = satisfactionOptimizer.unmatchedZeroCheck( testUnmatchedMatrix, testZerosByRow, testMRows, testMCols);
+        int[] testReturn = satisfactionOptimizer.unmatchedZeroCheck(testUnmatchedMatrix, testZerosByRow, testMRows, testMCols);
 
         int[][] testAfterUnmatchedMatrix = new int[][]{{1, 1, 2}, {2, 0, 1}, {2, 2, 1}};
-        int[] testAfterZerosByRow  = new int[]{-1, 1, -1};
-        int[] testAfterMRows  = new int[]{-1, -1, -1};
-        int[] testAfterMCols  = new int[]{-1, 0, -1};
-        int[] testAfterReturn = new int[]{1,1};
+        int[] testAfterZerosByRow = new int[]{-1, 1, -1};
+        int[] testAfterMRows = new int[]{-1, -1, -1};
+        int[] testAfterMCols = new int[]{-1, 0, -1};
+        int[] testAfterReturn = new int[]{1, 1};
 
         assertNotNull("Return was Null", testReturn);
 
@@ -530,7 +537,7 @@ public class SatisfactionOptimizerTest {
         int[][] testAfterMatrix = new int[][]{{1, 2, 3}, {3, 2, 1}, {3, 2, 1}};
 
 
-        assertNull("Return was not Null",testReturn);
+        assertNull("Return was not Null", testReturn);
 
         for (int i = 0; i < testMatrix.length; i++) {
             assertSame("Wrong Value Expected: " + testAfterZerosByRow[i] + " Actual: " + testZerosByRow[i],
@@ -576,13 +583,13 @@ public class SatisfactionOptimizerTest {
     //UnmatchedZeroCheck Tests
     @Test
     public void testMarkMatchedColumnsZeroes() {
-        int[] testZerosByCol  = new int[]{0, 0, 0};
-        int[] testMCols  = new int[]{0, 0, 0};
+        int[] testZerosByCol = new int[]{0, 0, 0};
+        int[] testMCols = new int[]{0, 0, 0};
 
-        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol,testMCols);
+        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol, testMCols);
 
-        int[] testAfterZerosByCol  = new int[]{0, 0, 0};
-        int[] testAfterMCols  = new int[]{1,1,1};
+        int[] testAfterZerosByCol = new int[]{0, 0, 0};
+        int[] testAfterMCols = new int[]{1, 1, 1};
 
         for (int i = 0; i < testZerosByCol.length; i++) {
             assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
@@ -594,13 +601,13 @@ public class SatisfactionOptimizerTest {
 
     @Test
     public void testMarkMatchedColumnsZeroesNOChange() {
-        int[] testZerosByCol  = new int[]{-1, -1, -1};
-        int[] testMCols  = new int[]{0, 0, 0};
+        int[] testZerosByCol = new int[]{-1, -1, -1};
+        int[] testMCols = new int[]{0, 0, 0};
 
-        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol,testMCols);
+        satisfactionOptimizer.markMatchedColumnsZeroes(testZerosByCol, testMCols);
 
-        int[] testAfterZerosByCol  = new int[]{-1, -1, -1};
-        int[] testAfterMCols  = new int[]{0,0,0};
+        int[] testAfterZerosByCol = new int[]{-1, -1, -1};
+        int[] testAfterMCols = new int[]{0, 0, 0};
 
         for (int i = 0; i < testZerosByCol.length; i++) {
             assertSame("Wrong Value Expected: " + testAfterZerosByCol[i] + " Actual: " + testZerosByCol[i],
