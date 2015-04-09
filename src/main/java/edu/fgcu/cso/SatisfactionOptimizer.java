@@ -235,6 +235,7 @@ public class SatisfactionOptimizer {
 
 
     /**
+     *
      * @param solZero
      * @param zerosByRow
      * @param zerosByCol
