@@ -95,10 +95,81 @@ public class SatisfactionOptimizerTest {
     }
 
     @Test
+    public void testCalcCEOTestsMatrices() {
+        int[][][] TestMatrixs = {
+                {
+                        {0, 1, 0, 0, 5},
+                        {1, 0, 3, 4, 5},
+                        {7, 0, 0, 4, 5},
+                        {9, 0, 3, 4, 5},
+                        {3, 0, 3, 4, 5}
+                },
+                {
+                        {1, 1, 0, 1},
+                        {1, 0, 0, 1},
+                        {0, 0, 1, 1},
+                        {0, 1, 1, 1}
+                },
+                {
+                        {1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 0, 1, 1},
+                        {1, 1, 0, 0, 1, 1},
+                        {1, 0, 0, 1, 1, 1},
+                        {1, 0, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1}
+                }};
+        int[][][] testAfterMatrix = {
+                {
+                        {0, 1, 0, 0, 5},
+                        {1, 0, 3, 4, 5},
+                        {7, 0, 0, 4, 5},
+                        {9, 0, 3, 4, 5},
+                        {3, 0, 3, 4, 5}
+                },
+                {
+                        {1, 1, 0, 1},
+                        {1, 0, 0, 1},
+                        {0, 0, 1, 1},
+                        {0, 1, 1, 1}
+                },
+                {
+                        {1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 0, 1, 1},
+                        {1, 1, 0, 0, 1, 1},
+                        {1, 0, 0, 1, 1, 1},
+                        {1, 0, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1}
+                }};
+
+
+        int[][] testAfterSolution = new int[][]{{3, 0, 4, 2, 1}, {0, 3, 2, 1}, {0, 1, 4, 3, 2, 5}};
+
+        for (int m = 0; m < TestMatrixs.length; m++) {
+
+            int[] testSolutions = satisfactionOptimizer.calcCSO(TestMatrixs[m]);
+
+            for (int i = 0; i < TestMatrixs[m].length; i++) {
+                assertSame("Wrong Value Expected: " + testAfterSolution[m][i] + " Actual: " + testSolutions[i],
+                        testAfterSolution[m][i], testSolutions[i]);
+
+                for (int j = 0; j < TestMatrixs[m][i].length; j++) {
+                    assertSame("Wrong Value Expected: " + testAfterMatrix[m][i][j] + " Actual: " + TestMatrixs[m][i][j],
+                            testAfterMatrix[m][i][j], TestMatrixs[m][i][j]);
+                }
+            }
+        }
+
+    }
+
+    @Test
     public void testCalcCSOAllZero() {
         int[][] testZeroMatrix = new int[3][3];
         int[] testAfterSolution = new int[]{0, 1, 2};
-        int[][] testAfterMatrix = new int[3][3];
+        int[][] testAfterMatrix = new int[][]{
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+        };
 
         int[] testSolutions = satisfactionOptimizer.calcCSO(testZeroMatrix);
 
@@ -225,7 +296,13 @@ public class SatisfactionOptimizerTest {
 
         satisfactionOptimizer.reduceMatrix(testReduce);
 
-        int[][] testAfterReduce = new int[5][5];
+        int[][] testAfterReduce = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}
+        };
 
         for (int i = 0; i < testReduce.length; i++) {
             for (int j = 0; j < testReduce[i].length; j++) {
