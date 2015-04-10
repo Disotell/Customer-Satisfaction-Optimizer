@@ -163,14 +163,12 @@ public class SatisfactionOptimizerTest {
 
     @Test
     public void testCalcCSOAllZero() {
-        int[][] testZeroMatrix = new int[3][3];
-        int[] testAfterSolution = new int[]{0, 1, 2};
-        int[][] testAfterMatrix = new int[][]{
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-        };
-
+        int[][] testZeroMatrix = new int[100][100];
+        int[] testAfterSolution = new int[100];
+        for(int i =0;i<100;i++) {
+            testAfterSolution[i] = i;
+        }
+        int[][] testAfterMatrix = new int[100][100];
         int[] testSolutions = satisfactionOptimizer.calcCSO(testZeroMatrix);
 
         for (int i = 0; i < testZeroMatrix.length; i++) {
