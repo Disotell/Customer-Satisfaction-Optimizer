@@ -59,10 +59,11 @@ public class GUI {
         JPanel matrixPanel = buildMatixPanel();
 
         JTable table = createMatrix(matrix, solution);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         JScrollPane scrollPane = new JScrollPane(table);
 
-        matrixPanel.add(scrollPane);
+        matrixPanel.add(scrollPane, BorderLayout.CENTER);
         frame.add(matrixPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
@@ -72,8 +73,7 @@ public class GUI {
     }
 
     public JPanel buildMatixPanel() {
-        JPanel matrixPanel = new JPanel();
-        matrixPanel.setPreferredSize(new Dimension(300, 400));
+        JPanel matrixPanel = new JPanel(new BorderLayout());
         matrixPanel.setBackground(Color.gray);
         return matrixPanel;
     }
