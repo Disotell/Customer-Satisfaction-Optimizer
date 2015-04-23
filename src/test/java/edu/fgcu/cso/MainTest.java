@@ -101,7 +101,7 @@ public class MainTest {
             fileChooserFixture = new JFileChooserFixture(robot, Main.FILECHOOSER_NAME);
         }
         catch (Exception e){
-            fail("Failed to find open GUI window, this message will be displayed when using Jenkins");
+            fail("Failed to find open GUI window, this message will be displayed when the testing program does not have access to the GUI, such as when using Jenkins");
         }
         fileChooserFixture.requireVisible();
 
