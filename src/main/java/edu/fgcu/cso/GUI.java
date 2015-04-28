@@ -11,6 +11,7 @@ public class GUI {
     public static final String MAIN_WINDOW_NAME = "mainWindow";
     public static final String TABLE_NAME = "mainTable";
     public static final String ERROR_LABEL = "errorLabel";
+    public static final String INFO_LABEL = "infoLabel";
 
     public JFrame frame;
 
@@ -64,6 +65,13 @@ public class GUI {
         JScrollPane scrollPane = new JScrollPane(table);
 
         matrixPanel.add(scrollPane, BorderLayout.CENTER);
+
+        int[] maxAndAvg = getAverageAndMax(matrix, solution);
+        if(maxAndAvg != null) {
+            JLabel label = new JLabel("Max Satisfaction in Solution: " + maxAndAvg[0] + " Average Satisfaction in Solution: " + maxAndAvg[1]);
+            label.setName(INFO_LABEL);
+            frame.add(label, BorderLayout.NORTH);
+        }
         frame.add(matrixPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
@@ -108,6 +116,24 @@ public class GUI {
         return dataMatrix;
     }
 
+    public int[] getAverageAndMax(int[][] matrix, int[] solution){
+        if(matrix == null || solution == null || matrix.length == 0 || solution.length == 0) return null;
+
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int index = 0; index < solution.length; index++){
+            if(matrix[index][solution[index]] > max){
+                max = matrix[index][solution[index]];
+            }
+            sum += matrix[index][solution[index]];
+        }
+
+        int[] toReturn = new int[2];
+        toReturn[0] = max;
+        toReturn[1] = sum / solution.length;
+
+        return toReturn;
+    }
 
     public class AccentedTable extends JTable{
 

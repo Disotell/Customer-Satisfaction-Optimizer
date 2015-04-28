@@ -15,6 +15,7 @@ import javax.swing.*;
 import static org.junit.Assert.*;
 import static edu.fgcu.cso.GUI.TABLE_NAME;
 import static edu.fgcu.cso.GUI.ERROR_LABEL;
+import static edu.fgcu.cso.GUI.INFO_LABEL;
 
 import java.awt.*;
 
@@ -29,6 +30,8 @@ public class GUITest {
             {21, 22, 23, 24, 25}};
 
     int[] fakeSolution = {3,   0,  2,  1,  4};
+    int averageForFake = 13;
+    int maxForFake = 25;
 
     String guiSolutionError = "Multiple or no solution found for matrix";
     String guiMatrixError = "Error parsing data matrix from file";
@@ -72,9 +75,13 @@ public class GUITest {
 
         window = createFrameFixture();
 
+        JLabelFixture labelFixture = window.label(INFO_LABEL);
+        assertNotNull("LabelFixture retrieved is null", labelFixture);
+        labelFixture.requireText("Max Satisfaction in Solution: " + maxForFake + " Average Satisfaction in Solution: " + averageForFake);
+
         JTableFixture tableFixture = window.table(TABLE_NAME);
 
-        assertNotNull("TableFixture retrieved is null",tableFixture);
+        assertNotNull("TableFixture retrieved is null", tableFixture);
 
         String[][] values = tableFixture.contents();
 
@@ -234,10 +241,14 @@ public class GUITest {
     }
 
     @Test
-    public void createUIComponents() {
+    public void testCreateUIComponents() {
         gui.createUIComponents(fakeDataSet,fakeSolution);
 
         window = createFrameFixture();
+
+        JLabelFixture labelFixture = window.label(INFO_LABEL);
+        assertNotNull("LabelFixture retrieved is null",labelFixture);
+        labelFixture.requireText("Max Satisfaction in Solution: " + maxForFake + " Average Satisfaction in Solution: " + averageForFake);
 
         JTableFixture tableFixture = window.table(TABLE_NAME);
 
@@ -267,5 +278,33 @@ public class GUITest {
                 }
             }
         }
+    }
+
+    @Test
+    public void testGetAverageAndMaxReturnNullMatrix(){
+        assertNull("method with null matrix should return null",gui.getAverageAndMax(null, fakeSolution));
+    }
+
+    @Test
+    public void testGetAverageAndMaxReturnNullSolution(){
+        assertNull("method with null solution should return null", gui.getAverageAndMax(fakeDataSet, null));
+    }
+
+    @Test
+    public void testGetAverageAndMaxReturnEmptyMatrix(){
+        assertNull("method with empty matrix should return null",gui.getAverageAndMax(new int[0][0], fakeSolution));
+    }
+
+    @Test
+    public void testGetAverageAndMaxReturnEmptySolution(){
+        assertNull("method with empty solution should return null", gui.getAverageAndMax(fakeDataSet, new int[0]));
+    }
+
+    @Test
+    public void testGetAverageAndMax() {
+        int[] maxAndAvg = gui.getAverageAndMax(fakeDataSet,fakeSolution);
+        assertEquals("Matrix length is not 2",2,maxAndAvg.length);
+        assertEquals("Max is incorrect",maxForFake,maxAndAvg[0]);
+        assertEquals("Average is incorrect",averageForFake,maxAndAvg[1]);
     }
 }
